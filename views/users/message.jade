@@ -1,0 +1,33 @@
+extends ../layout
+
+block content    
+  .container
+    ul.class.nav.nav-tabs.nav-justified
+      if user.ifHost
+        li 
+            a(href='/users/#{user._id}') 프로필
+        li 
+            a(href='/users/#{user._id}/reservation') 예약확인
+        li 
+            a(href='/users/#{user._id}/message') 메시지
+        li 
+            a(href='/users/#{user._id}/message') 숙소등록
+        li 
+            a(href='/users/#{user._id}/message') 숙소정보
+      
+      else if user.ifRoot
+        li 
+            a(href='/users/#{user._id}') 프로필
+        li 
+            a(href='/users') 사용자목록     
+      
+      else
+        li 
+            a(href='/users/#{user._id}') 프로필
+        li 
+            a(href='/users/#{user._id}/reservation') 예약확인
+        li 
+            a(href='/users/#{user._id}/message') 메시지
+        li 
+            a(href='/users/#{user._id}/message') Host되기
+      s
