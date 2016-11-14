@@ -2,36 +2,13 @@ extends ../layout
 
 block content
   .container
-    .row
-      .col-md-6
-        h1 List
-        p 전 세계의 독특한 숙소를 예약하고 현지인의 삶을 살아보세요. 
-        .row
-          .col-sm-6.col-md-4
+    h1 List
+    p 전 세계의 독특한 숙소를 예약하고 현지인의 삶을 살아보세요. 
+      .row
+      each room in rooms
+        a(href="/rooms/#{room._id}")
+          .col-sm-8.col-md-4(style="float:left; margin: 20px 0px;")
             .thumbnail
               img(src='images/bg.jpg' alt="사진")
             .caption
-              h3Thumbnail label
-                p Cras justo odio, dapibus ac facilisis in, egestas eget quam. Donec id elit non mi porta gravida at eget metus. Nullam id dolor id nibh ultricies vehicula ut id elit.
-                p
-                  a(href="#" class="btn btn-primary" role="button") Button
-                  a(href="#" class="btn btn-default" role="button") Button
-          .col-sm-6.col-md-4
-            .thumbnail
-              img(src='images/bg.jpg' alt="사진")
-            .caption
-              h3Thumbnail label
-                p Cras justo odio, dapibus ac facilisis in, egestas eget quam. Donec id elit non mi porta gravida at eget metus. Nullam id dolor id nibh ultricies vehicula ut id elit.
-                p
-                  a(href="#" class="btn btn-primary" role="button") Button
-                  a(href="#" class="btn btn-default" role="button") Button
-          .col-sm-6.col-md-4
-            .thumbnail
-              img(src='images/bg.jpg' alt="사진")
-            .caption
-              h3Thumbnail label
-                p Cras justo odio, dapibus ac facilisis in, egestas eget quam. Donec id elit non mi porta gravida at eget metus. Nullam id dolor id nibh ultricies vehicula ut id elit.
-                p
-                  a(href="#" class="btn btn-primary" role="button") Button
-                  a(href="#" class="btn btn-default" role="button") Button
-           
+              h3Thumbnail="￦"+room.price +" "+ room.city+"에 위치한 집" 

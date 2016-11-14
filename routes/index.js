@@ -1,5 +1,6 @@
 var express = require('express'),
     User = require('../models/User');
+    Room = require('../models/Room');
 var router = express.Router();
 
 /* GET home page. */
@@ -14,9 +15,9 @@ router.get('/signin', function(req, res, next) {
 
 // 숙소 목록 페이지
 router.get('/rooms', function(req,res,next){
-  // Room.find({}, function(err, rooms) {
-    res.render('rooms/list');
-  // });
+  Room.find({}, function(err, rooms) {
+    res.render('rooms/list',{rooms:rooms});
+  });
 });
 
 // 숙소 상세정보 페이지

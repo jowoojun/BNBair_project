@@ -46,8 +46,8 @@ function searchUser(room_id, users){
   var user;
   for(i = 0; i < Object.keys(users).length; i++){
     user = users[i];
-    if(user.ifHost == true){
-      if(user.rooms != null){
+    if(user.ifHost === true){
+      if(user.rooms !== null){
         for(j = 0; j < user.rooms.length; j++){
           if(user.rooms[j]._id == room_id){
             return user._id;
