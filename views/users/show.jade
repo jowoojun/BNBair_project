@@ -1,46 +1,15 @@
-extends ../layout
-
-block content    
-  .container
-    ul.class.nav.nav-tabs.nav-justified
-      if user.ifHost
-        li 
-            a(href='/users/#{user._id}') 프로필
-        li 
-            a(href='/users/#{user._id}/reservation') 예약확인
-        li 
-            a(href='/users/#{user._id}/message') 메시지
-        li 
-            a(href='/users/#{user._id}/message') 숙소등록
-        li 
-            a(href='/users/#{user._id}/message') 숙소정보
-      
-      else if user.ifRoot
-        li 
-            a(href='/users/#{user._id}') 프로필
-        li 
-            a(href='/users') 사용자목록     
-      
-      else
-        li 
-            a(href='/users/#{user._id}') 프로필
-        li 
-            a(href='/users/#{user._id}/reservation') 예약확인
-        li 
-            a(href='/users/#{user._id}/message') 메시지
-        li 
-            a(href='/users/#{user._id}/message') Host되기
-      
+include ../profile_layout
+.container
     h1.page-header 회원 정보
-          
+        
     ul
-      li 이름: #{user.name}
-      li 이메일: #{user.email}
+        li 이름: #{user.name}
+        li 이메일: #{user.email}
 
     hr
     p
-      a.btn.btn-default(href='/users/') 목록
-      | 
-      a.btn.btn-default(href='/users/#{user._id}/edit') 수정
-      | 
-      a.btn.btn-default(href='/users/#{user._id}?_method=DELETE') 삭제
+    a.btn.btn-default(href='/users/') 목록
+    | 
+    a.btn.btn-default(href='/users/#{user._id}/edit') 수정
+    | 
+    a.btn.btn-default(href='/users/#{user._id}?_method=DELETE') 삭제

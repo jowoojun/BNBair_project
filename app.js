@@ -22,7 +22,7 @@ if (app.get('env') === 'development') {
 }
 app.locals.moment = require('moment');
 
-mongoose.connect('mongodb://airBNB:ahdrhBNB@ds139847.mlab.com:39847/table');
+mongoose.connect('mongodb://airBNB:whdnwnsBNB@ds047305.mlab.com:47305/bnbair');
 mongoose.connection.on('error', console.log);
 
 // uncomment after placing your favicon in /public

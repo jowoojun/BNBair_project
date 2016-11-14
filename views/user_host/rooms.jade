@@ -1,0 +1,26 @@
+include ../profile_layout
+.container
+      h1.page-header 내가 등록한 숙소
+      
+      table.table.table-striped.table-bordered
+        thead
+          tr
+            th 숙소이름
+            th 도시
+            th 주소
+            th 가격
+            th 설명
+            th 편의시설
+            th 규칙
+        tbody
+          each room in user.rooms
+            tr
+              td 
+                a(href='/rooms/#{room._id}')= room.title
+              td= room.city
+              td= room.address
+              td= room.price
+              td= room.description
+              td= room.facilities
+              td= room.role
+              

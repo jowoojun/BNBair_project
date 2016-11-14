@@ -1,5 +1,4 @@
 var express = require('express'),
-    todos = require('./todos'),
     User = require('../models/User');
 var router = express.Router();
 
@@ -15,9 +14,9 @@ router.get('/signin', function(req, res, next) {
 
 // 숙소 목록 페이지
 router.get('/rooms', function(req,res,next){
-  Room.find({}, function(err, rooms) {
-    res.render('rooms/list', {rooms : rooms});
-  });
+  // Room.find({}, function(err, rooms) {
+    res.render('rooms/list');
+  // });
 });
 
 // 숙소 상세정보 페이지
@@ -52,6 +51,5 @@ router.get('/signout', function(req, res, next) {
   req.flash('success', '로그아웃 되었습니다.');
   res.redirect('/');
 });
-router.use('/', todos);
 
 module.exports = router;

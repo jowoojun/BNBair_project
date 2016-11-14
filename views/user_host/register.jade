@@ -1,0 +1,28 @@
+include ../profile_layout
+.container
+    h1.page-header 숙소 등록하기
+    form(action='/users/#{user._id}/register', method='POST')
+      .form-group
+        label(for='title') 숙소이름
+        input.form-control(type='text', id='title', name='title', placeholder='title')
+      .form-group
+        label(for='email') 도시
+        input.form-control(type='text', id='city', name='city', placeholder='city')
+      .form-group
+        label(for='address') 주소
+        input.form-control(type='text', id='address', name='address', placeholder='address')
+      .form-group
+        label(for='price') 가격
+        input.form-control(type='text', id='price', name='price', placeholder='price')
+      .form-group
+        label(for='description') 설명
+        textarea.form-control(id='description', name='description' placeholder = 'description')
+      .form-group
+        label(for='facilities') 편의시설
+        textarea.form-control(id='facilities', name='facilities' placeholder = 'facilities')
+      .form-group
+        label(for='role') 규칙
+        textarea.form-control(id='role', name='role' placeholder = 'role')
+      div.form-actions
+        button.btn.btn-primary(type='submit') 등록하기
+
