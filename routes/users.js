@@ -144,17 +144,34 @@ router.get('/:id/register', function(req, res, next) {
     if (err) {
       return next(err);
     }
+    
     res.render('user_host/register', {user: user});
   });
 });
 
+function copy(user){
+  var clone;
+  var rooms = [];
+  for(var i=0; i < user.rooms.length; i++){
+      Room.find({_id: user.rooms[i]},function(err, room){
+        clone = JSON.parse(JSON.stringify(room));
+        rooms.push(clone);
+      });
+    }
+    return rooms;
+}
+
 // 숙소정보화면
 router.get('/:id/rooms', function(req, res, next) {
+  
+  
   User.findById({_id: req.params.id}, function(err, user) {
     if (err) {
       return next(err);
     }
-    res.render('user_host/rooms', {user: user});
+    Room.find({uid: user._id},function(err, rooms){
+      res.render('user_host/rooms', {user: user, rooms:rooms});
+    })
   });
 });
 
@@ -225,16 +242,15 @@ router.post('/:id/register', function(req, res, next) {
       title: req.body.title,
       description: req.body.description,
       city: req.body.city,
+      postNumber:req.body.postNumber,
       address: req.body.address,
       price: req.body.price,
       facilities: req.body.facilities,
       role: req.body.role,
+      uid: req.params.id
     }); 
 
-    newRoom.save();
-    user.rooms.push(newRoom);
-
-    user.save(function(err) {
+    newRoom.save(function(err) {
       if (err) {
         return next(err);
       } else {

@@ -7,17 +7,19 @@ include ../profile_layout
           tr
             th 숙소이름
             th 도시
+            th 우편번호
             th 주소
             th 가격
             th 설명
             th 편의시설
             th 규칙
         tbody
-          each room in user.rooms
+          each room in rooms
             tr
               td 
                 a(href='/rooms/#{room._id}')= room.title
               td= room.city
+              td= room.postNumber
               td= room.address
               td= room.price
               td= room.description
