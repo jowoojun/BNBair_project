@@ -8,21 +8,19 @@ include ../profile_layout
             th 숙소이름
             th 도시
             th 우편번호
+            th 시작날짜
+            th 종료날짜
             th 주소
             th 가격
-            th 설명
-            th 편의시설
-            th 규칙
         tbody
           each room in rooms
             tr
               td 
                 a(href='/rooms/#{room._id}')= room.title
               td= room.city
-              td= room.postNumber
+              td= room.post_number
+              td= moment(room.start_date).format('YYYY-MM-DD')
+              td= moment(room.end_date).format('YYYY-MM-DD')
               td= room.address
               td= room.price
-              td= room.description
-              td= room.facilities
-              td= room.role 
               

@@ -1,0 +1,37 @@
+h1= room.title
+p= room.city
+
+hr
+.panel.panel-default
+  <!-- Default panel contents -->
+  .panel-heading 
+    h3 상세설명
+  .panel-body
+    h4=room.description
+  
+  <!-- Table -->
+  table.table.table-bordered.table-striped
+      tbody
+        tr
+          td.head(scope='row') 시설
+          |  
+          td
+            h4=room.facilities
+        tr
+          td.head(scope='row') 규칙
+          |  
+          td
+            h4=room.role
+        |  
+        tr
+          td.head(scope='row') 설명
+          |  
+          td
+            h4=room.description
+        |  
+        tr
+          td.head(scope='row') 예약 가능 여부
+          |  
+          td
+            h4=moment(room.start_date).format('YYYY-MM-DD') + " ~ " + moment(room.end_date).format('YYYY-MM-DD')
+        |  

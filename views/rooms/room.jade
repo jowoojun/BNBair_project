@@ -1,0 +1,12 @@
+extends ../layout
+
+block hero-unit
+  .cover-img(style="background-image: url('/images/back.jpg')")
+
+block content
+  .container
+    .row
+      .col-md-8
+        include ../includes/room-main
+      .col-md-4.side
+        include ../includes/room-side

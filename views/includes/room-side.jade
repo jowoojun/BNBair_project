@@ -1,0 +1,56 @@
+div
+  .col-sm-8.col-md-9(style="width:100%")
+      h3="￦"+room.price
+  form(method='post', action='https://www.airbnb.co.kr/payments/book?s=xqLwP5i0&hosting_id=14737460', data-reactid='.1tv1siypekg.0.1')
+    .row
+      .col-md-12(style="margin-bottom:20px;padding:0px")
+        .col-sm-4.col-md-6
+          label(for='start_date') 체크인
+          input.form-control(type='date', id='start_date', name='start_date')
+        .col-sm-4.col-md-6
+          label(for='end_date') 체크아웃
+          input.form-control(type='date', id='end_date', name='end_date')
+            
+
+        .col-sm-4.col-md-5(style="margin-top:10px")
+          label(for='number_of_guests') 숙박 인원
+          .select
+            select.form-control(name='number_of_guests')
+              option(value='1', selected) 1
+              option(value='2') 2
+              option(value='3') 3
+
+    .book-it__subtotal
+      div
+        table.table
+          caption
+            span 요금 내역
+          thead
+            tr
+              th
+                span 요금 설명
+              th
+                span 금액
+          tbody
+            tr
+              th
+                span 숙소
+                span &nbsp;
+              td
+                div
+                  span="￦"+room.price
+            tr
+              th
+                span 서비스 수수료
+                span &nbsp;
+              td
+                  div
+                    span="￦"+parseInt(room.price)*0.2
+              tr
+                th
+                  span 합계
+                td
+                  span="￦"+(parseInt(room.price)+parseInt(room.price)*0.2)
+      .book-it__btn-width
+        button.btn.btn-primary.btn-large.btn-block(type='submit') 예약 요청
+        

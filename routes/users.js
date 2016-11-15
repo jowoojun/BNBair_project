@@ -41,23 +41,6 @@ function validateForm(form, options) {
   return null;
 }
 
-function searchUser(room_id, users){
-  var i, j;
-  var user;
-  for(i = 0; i < Object.keys(users).length; i++){
-    user = users[i];
-    if(user.ifHost === true){
-      if(user.rooms !== null){
-        for(j = 0; j < user.rooms.length; j++){
-          if(user.rooms[j]._id == room_id){
-            return user._id;
-          }
-        }
-      }
-    }
-  }
-  return null;
-}
 // GET
 // 사용자 목록 화면
 router.get('/', needAuth, function(req, res, next) {
@@ -149,29 +132,15 @@ router.get('/:id/register', function(req, res, next) {
   });
 });
 
-function copy(user){
-  var clone;
-  var rooms = [];
-  for(var i=0; i < user.rooms.length; i++){
-      Room.find({_id: user.rooms[i]},function(err, room){
-        clone = JSON.parse(JSON.stringify(room));
-        rooms.push(clone);
-      });
-    }
-    return rooms;
-}
-
 // 숙소정보화면
 router.get('/:id/rooms', function(req, res, next) {
-  
-  
   User.findById({_id: req.params.id}, function(err, user) {
     if (err) {
       return next(err);
     }
     Room.find({uid: user._id},function(err, rooms){
       res.render('user_host/rooms', {user: user, rooms:rooms});
-    })
+    });
   });
 });
 
@@ -242,12 +211,14 @@ router.post('/:id/register', function(req, res, next) {
       title: req.body.title,
       description: req.body.description,
       city: req.body.city,
-      postNumber:req.body.postNumber,
+      post_number:req.body.post_number,
       address: req.body.address,
       price: req.body.price,
       facilities: req.body.facilities,
       role: req.body.role,
-      uid: req.params.id
+      uid: req.params.id,
+      start_date: req.body.start_date,
+      end_date: req.body.end_date
     }); 
 
     newRoom.save(function(err) {

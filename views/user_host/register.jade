@@ -8,11 +8,18 @@ include ../profile_layout
       .form-group
         label(for='email') 도시
         input.form-control(type='text', id='city', name='city', placeholder='city')
+      .form-group(style="overflow:hidden")
+        .date(style="float:left; width:20%")
+          label(for='start_date') 시작 날짜
+          input.form-control(type='date', id='start_date', name='start_date')
+        .date(style="overflow:hidden;margin:0px 20px;float:left; width:20%")
+          label(for='end_date') 종료 날짜
+          input.form-control(type='date', id='end_date', name='end_date')
       .form-group
         label(for='address') 주소
         p
           .postForm(style="width:100%")
-            input.form-control#sample3_postcode(name='postNumber' type='text', style="width:40%; float:left;", placeholder='우편번호')
+            input.form-control#sample3_postcode(name='post_number' type='text', style="width:40%; float:left;", placeholder='우편번호')
             input(type='button', style="height:30px;margin:0px 20px",onclick='sample3_execDaumPostcode()', value='우편번호 찾기')
           br
           div#wrap(style='display:none;border:1px solid;width:500px;height:300px;margin:5px 0;position:relative')

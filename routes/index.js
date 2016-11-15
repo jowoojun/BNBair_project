@@ -22,7 +22,7 @@ router.get('/rooms', function(req,res,next){
 
 // 숙소 상세정보 페이지
 router.get('/rooms/:id', function(req,res,next){
-  Room.findOne(req.params.id, function(err, room) {
+  Room.findById(req.params.id, function(err, room) {
     res.render('rooms/room', {room:room});
   });
 });
