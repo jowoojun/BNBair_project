@@ -5,6 +5,7 @@ var schema = new Schema({
   name: {type: String, required: true, trim: true},
   email: {type: String, required: true, index: true, unique: true, trim: true},
   password: {type: String, required: true},
+  passwordSalt: {type:String},
   ifHost : {type:Boolean, default:false},
   ifRoot : {type:Boolean, default:false},
   reservation : {type:Array},

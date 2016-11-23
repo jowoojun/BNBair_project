@@ -1,2 +1,40 @@
 include ../profile_layout
 .container
+      h1.page-header 예약 확인
+      
+      h3 예약중인 숙소
+      table.table.table-striped.table-bordered
+        thead
+          tr
+            th 숙소이름
+            th 체크인 날짜
+            th 체크아웃 날짜
+            th 숙박인원
+        tbody
+          each booking in bookings
+            if (bookings.currentState)
+              tr
+                td 
+                  a(href='/rooms/#{booking.room_id}')= booking.room_title
+                td= moment(booking.start_date).format('YYYY-MM-DD')
+                td= moment(booking.end_date).format('YYYY-MM-DD')
+                td= booking.occupancy
+
+      
+      h3 예약 완료된 숙소
+      table.table.table-striped.table-bordered
+        thead
+          tr
+            th 숙소이름
+            th 체크인 날짜
+            th 체크아웃 날짜
+            th 숙박인원
+        tbody
+          each booking in bookings
+            if !(bookings.currentState)
+              tr
+                td 
+                  a(href='/rooms/#{booking.room_id}')= booking.room_title
+                td= moment(booking.start_date).format('YYYY-MM-DD')
+                td= moment(booking.end_date).format('YYYY-MM-DD')
+                td= booking.occupancy

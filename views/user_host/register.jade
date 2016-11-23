@@ -15,6 +15,10 @@ include ../profile_layout
         .date(style="overflow:hidden;margin:0px 20px;float:left; width:20%")
           label(for='end_date') 종료 날짜
           input.form-control(type='date', id='end_date', name='end_date')
+          .col-sm-4.col-md-5(style="margin-top:10px")
+      .form-group(style="overflow:hidden")
+        label(for='occupancy') 최대 숙박 인원
+        input.form-control(type='text', id='max_occupancy', name='max_occupancy')
       .form-group
         label(for='address') 주소
         p

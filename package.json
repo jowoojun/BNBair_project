@@ -13,6 +13,7 @@
     "express": "~4.13.4",
     "express-session": "^1.14.2",
     "jade": "~1.11.0",
+    "lodash": "^4.17.2",
     "method-override": "^2.3.6",
     "moment": "^2.15.2",
     "mongoose": "^4.6.6",

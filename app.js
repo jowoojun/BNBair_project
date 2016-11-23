@@ -11,6 +11,7 @@ var mongoose   = require('mongoose');
 
 var routes = require('./routes/index');
 var users = require('./routes/users');
+var rooms = require('./routes/rooms');
 
 var app = express();
 
@@ -36,7 +37,7 @@ app.use(methodOverride('_method', {methods: ['POST', 'GET']}));
 app.use(session({
   resave: true,
   saveUninitialized: true,
-  secret: 'long-long-long-secret-string-1313513tefgwdsvbjkvasd'
+  secret: 'long-long-long-long-secret-string-sadfjkb14346235lknvs8'
 }));
 app.use(flash());
 
@@ -49,8 +50,10 @@ app.use(function(req, res, next) {
   next();
 });
 
+
 app.use('/', routes);
 app.use('/users', users);
+app.use('/rooms', rooms);
 
 // catch 404 and forward to error handler
 app.use(function(req, res, next) {

@@ -1,6 +1,7 @@
 var express = require('express'),
     User = require('../models/User');
     Room = require('../models/Room');
+    Booking = require('../models/Booking');
 var router = express.Router();
 
 function needAuth(req, res, next) {
@@ -70,7 +71,7 @@ router.get('/new', function(req, res, next) {
 });
 
 // 사용자 정보 편집 화면
-router.get('/:id/edit', function(req, res, next) {
+router.get('/:id/edit', needAuth, function(req, res, next) {
   User.findById(req.params.id, function(err, user) {
     if (err) {
       return next(err);
@@ -80,12 +81,12 @@ router.get('/:id/edit', function(req, res, next) {
 });
 
 // 호스트 되기 화면
-router.get('/:id/host', function(req, res, next) {
+router.get('/:id/host',needAuth,  function(req, res, next) {
     User.findById(req.params.id, function(err, user) {
     if (err) {
       return next(err);
     }
-    // res.send(user);
+    
     res.render('users/host', {user: user});
   });
 });
@@ -96,33 +97,39 @@ router.get('/:id', function(req, res, next) {
     if (err) {
       return next(err);
     }
-    // res.send(user);
+
     res.render('users/show', {user: user});
   });
 });
 
 // 예약확인 화면
-router.get('/:id/reservation', function(req, res, next) {
+router.get('/:id/reservation',needAuth,  function(req, res, next) {
   User.findById(req.params.id, function(err, user) {
     if (err) {
       return next(err);
     }
-    res.render('users/reservation', {user: user});
+    
+    Booking.find({user_id: req.params.id}, function(err, bookings){
+      res.render('users/reservation', {user:user, bookings:bookings});
+    });
   });
 });
 
 // 메시지 화면
-router.get('/:id/message', function(req, res, next) {
+router.get('/:id/message',needAuth,  function(req, res, next) {
   User.findById(req.params.id, function(err, user) {
     if (err) {
       return next(err);
     }
-    res.render('users/message', {user: user});
+
+    Booking.find({owner_id: req.params.id, currentState : false}, function(err, bookings){
+      res.render('users/message', {user:user, bookings:bookings});
+    });
   });
 });
 
 // 숙소등록화면
-router.get('/:id/register', function(req, res, next) {
+router.get('/:id/register', needAuth,  function(req, res, next) {
   User.findById(req.params.id, function(err, user) {
     if (err) {
       return next(err);
@@ -133,12 +140,12 @@ router.get('/:id/register', function(req, res, next) {
 });
 
 // 숙소정보화면
-router.get('/:id/rooms', function(req, res, next) {
+router.get('/:id/rooms', needAuth, function(req, res, next) {
   User.findById({_id: req.params.id}, function(err, user) {
     if (err) {
       return next(err);
     }
-    Room.find({uid: user._id},function(err, rooms){
+    Room.find({owner_id: user._id},function(err, rooms){
       res.render('user_host/rooms', {user: user, rooms:rooms});
     });
   });
@@ -208,6 +215,7 @@ router.post('/:id/register', function(req, res, next) {
     }
 
     var newRoom = new Room({
+      owner_id: req.params.id,
       title: req.body.title,
       description: req.body.description,
       city: req.body.city,
@@ -216,7 +224,7 @@ router.post('/:id/register', function(req, res, next) {
       price: req.body.price,
       facilities: req.body.facilities,
       role: req.body.role,
-      uid: req.params.id,
+      max_occupancy : req.body.max_occupancy,
       start_date: req.body.start_date,
       end_date: req.body.end_date
     }); 
@@ -230,6 +238,16 @@ router.post('/:id/register', function(req, res, next) {
       }
     });
   });
+});
+
+// 예약 승인
+router.post('/:id/confirm',function(req,res) {
+    Booking.update({_id:req.params.id,currentState:false}, {$set:{ currentState:true }}, function(err, results) {
+        if(err){
+            res.send(err);
+        }
+        res.redirect('back');
+    });
 });
 
 // PUT
@@ -274,13 +292,27 @@ router.put('/:id', function(req, res, next) {
 // DELETE
 // 사용자 삭제
 router.delete('/:id', function(req, res, next) {
+  delete req.session.user;
   User.findOneAndRemove({_id: req.params.id}, function(err) {
     if (err) {
       return next(err);
     }
     req.flash('success', '사용자 계정이 삭제되었습니다.');
-    res.redirect('/users');
+    res.redirect('/');
   });
+});
+
+
+// 예약 거절
+router.delete('/:id/message', function(req, res) {
+    delete req.session.user;
+    Booking.findOneAndRemove({_id: req.params.id}, function(err) {
+        if (err) {
+            return console.log(err);
+        }
+        req.flash('success', '예약 요청을 거절했습니다.');
+        res.redirect('back');
+    });
 });
 
 module.exports = router;

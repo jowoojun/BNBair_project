@@ -1,0 +1,39 @@
+h1= room.title
+h4= room.city
+
+  .col-md-12.col-xs-12.feature
+    hr
+    .col-md-11.col-xs-12
+      h3 상세설명  
+    .col-md-11.col-xs-12.context
+      h3=room.description
+    hr
+    .col-md-4.col-xs-12
+      h3 시설
+    .col-md-7.col-xs-12.context
+      h3=room.facilities
+    .col-md-4.col-xs-12
+      h3 규칙
+    .col-md-7.col-xs-12.context
+      h3=room.role
+    .col-md-4.col-xs-12
+      h3 설명
+    .col-md-7.col-xs-12.context
+      h3=room.description
+    .col-md-4.col-xs-12
+      h3 예약 가능 여부
+    .col-md-7.col-xs-12
+      h3=moment(room.start_date).format('YYYY-MM-DD') + " ~ " + moment(room.end_date).format('YYYY-MM-DD')
+  each post in posts
+    .col-md-12.col-xs-12
+      h4=post.user_name
+      h4=moment(post.createdAt).format('YYYY-MM')
+    .col-md-12.col-xs-12.context
+      h4=post.content
+.col-md-11.col-xs-12(style="margin-bottom:1em")
+  h2 후기 작성
+form(action='/rooms/#{room._id}/post', method='POST')
+  .col-md-10.col-xs-12
+    textarea.form-control(id='reply', name='reply' placeholder = 'reply')
+  .col-md-2.col-xs-12
+    button.btn.btn-primary.btn-large.btn-block(type='submit') 등록하기

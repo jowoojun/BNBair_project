@@ -1,2 +1,34 @@
 include ../profile_layout
 .container
+    h1.page-header 메시지
+
+    table.table.table-striped.table-bordered
+        tbody
+          each booking in bookings
+            tr
+              td
+                a(href="/rooms/#{booking.room_id}")=booking.room_title
+                |에 
+                a(href="/user/#{booking.user_id}")=booking.user_name
+                ="님이 " + moment(booking.start_date).format('YYYY-MM-DD') + "부터 " + moment(booking.end_date).format('YYYY-MM-DD') + "까지" + booking.occupancy + " 명의 예약을 신청했습니다."
+              td
+                form(action='/users/#{booking._id}/confirm', method='POST')
+                  button.btn.btn-primary.btn-xs(type='submit') 수락
+                
+                  a.btn.btn-xs.btn-default(data-id=booking.id, class='delete') 거절
+                
+                
+                
+                
+
+    form#deleteForm(style='display:none', method="POST")
+            
+    script(type='text/javascript').
+      $(".delete").click(function(e) {
+        var id = $(e.currentTarget).data('id');
+        if (confirm('정말 삭제하시겠습니까?')) {
+          console.log("success");
+          $("#deleteForm").attr('action', "/users/" + id + "/message?_method=DELETE").submit();          
+        }
+        return false;
+      });

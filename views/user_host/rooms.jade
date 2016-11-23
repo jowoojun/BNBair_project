@@ -10,7 +10,6 @@ include ../profile_layout
             th 우편번호
             th 시작날짜
             th 종료날짜
-            th 주소
             th 가격
         tbody
           each room in rooms
@@ -21,6 +20,5 @@ include ../profile_layout
               td= room.post_number
               td= moment(room.start_date).format('YYYY-MM-DD')
               td= moment(room.end_date).format('YYYY-MM-DD')
-              td= room.address
               td= room.price
               

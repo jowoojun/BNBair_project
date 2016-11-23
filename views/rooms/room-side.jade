@@ -1,7 +1,7 @@
 div
   .col-sm-8.col-md-9(style="width:100%")
       h3="￦"+room.price
-  form(method='post', action='https://www.airbnb.co.kr/payments/book?s=xqLwP5i0&hosting_id=14737460', data-reactid='.1tv1siypekg.0.1')
+  form(method='post', action='/rooms/#{room._id}/booking')
     .row
       .col-md-12(style="margin-bottom:20px;padding:0px")
         .col-sm-4.col-md-6
@@ -12,10 +12,10 @@ div
           input.form-control(type='date', id='end_date', name='end_date')
             
 
-        .col-sm-4.col-md-5(style="margin-top:10px")
-          label(for='number_of_guests') 숙박 인원
+        .col-sm-4.col-md-6(style="margin-top:10px")
+          label(for='occupancy') 숙박 인원
           .select
-            select.form-control(name='number_of_guests')
+            select.form-control(name='occupancy')
               option(value='1', selected) 1
               option(value='2') 2
               option(value='3') 3

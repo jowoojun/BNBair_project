@@ -10,10 +10,12 @@
           a.navbar-brand(href='/') BNBAir
         // Collect the nav links, forms, and other content for toggling
         #bs-example-navbar-collapse-1.collapse.navbar-collapse
-          form.navbar-form.navbar-left
-            .form-group
-              input.form-control(type='text', placeholder='어디로 가시나요?')
-              button.btn.btn-default(type='submit') Submit
+          form.navbar-form.navbar-left(action='/search', method='POST')
+            .form.group
+              input.form-control(type='text',name='search' id='search', size=20, placeholder='Type your country')
+              i.fa.fa-spin.fa-spinner
+              ul.suggest-box
+              button.btn.btn-default(type="submit") Submit
           ul.nav.navbar-nav.navbar-right
             ul.nav.navbar-nav
               li
@@ -30,3 +32,4 @@
                 a(href='/signout') Signout
 
 
+  script(src='/javascripts/autocomplete.js')
