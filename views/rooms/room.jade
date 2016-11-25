@@ -4,9 +4,15 @@ block hero-unit
   .cover-img(style="background-image: url('/images/back.jpg')")
 
 block content
+  #messages
   .container
     .row
       .col-md-8
         include ./room-main
-      .col-md-4.side
+      .col-md-4#room-side
         include ./room-side
+  include ../includes/footer
+
+
+  
+  

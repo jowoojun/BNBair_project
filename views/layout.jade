@@ -9,10 +9,11 @@ html(lang='ko')
     link(rel='stylesheet', href='/bower_components/bootstrap/dist/css/bootstrap.css')
     link(rel='stylesheet', href='/bower_components/font-awesome/css/font-awesome.min.css')
     link(rel='stylesheet', href='/stylesheets/style.css')
+    script(type="text/javascript", src="//apis.daum.net/maps/maps3.js?apikey=47110c92eed2e3d90b9663881c730e47&libraries=services")
     script(type='text/javascript', src='/bower_components/jquery/dist/jquery.js')
     script(type='text/javascript', src='/bower_components/bootstrap/dist/js/bootstrap.js')
-    script(src='/bower_components/lodash/lodash.min.js')
-    script(src='/javascripts/autocomplete.js')
+    script(type='text/javascript', src='/bower_components/lodash/lodash.min.js')
+    
   body
     block top-nav
       include ./includes/topnav
@@ -24,3 +25,5 @@ html(lang='ko')
             each msg in texts
               p= msg           
     block content
+
+    

@@ -2,6 +2,7 @@ var express = require('express'),
     User = require('../models/User');
     Room = require('../models/Room');
     Booking = require('../models/Booking');
+    Favorite = require('../models/Favorite');
 var router = express.Router();
 
 function needAuth(req, res, next) {
@@ -80,18 +81,7 @@ router.get('/:id/edit', needAuth, function(req, res, next) {
   });
 });
 
-// 호스트 되기 화면
-router.get('/:id/host',needAuth,  function(req, res, next) {
-    User.findById(req.params.id, function(err, user) {
-    if (err) {
-      return next(err);
-    }
-    
-    res.render('users/host', {user: user});
-  });
-});
-
-// profile화면
+// 개인 화면
 router.get('/:id', function(req, res, next) {
   User.findById(req.params.id, function(err, user) {
     if (err) {
@@ -99,6 +89,21 @@ router.get('/:id', function(req, res, next) {
     }
 
     res.render('users/show', {user: user});
+  });
+});
+
+// 프로필보기
+router.get('/:id/profile', function(req, res, next) {
+  User.findById(req.params.id, function(err, user) {
+    Post.find({user_id: req.params.id},function(err,posts){
+      Favorite.find({user_id: req.params.id}, function(err, favorites){
+        if (err) {
+          return next(err);
+        }
+
+        res.render('users/profile', {user: user, posts: posts, favorites: favorites});
+      });
+    });
   });
 });
 
@@ -125,6 +130,30 @@ router.get('/:id/message',needAuth,  function(req, res, next) {
     Booking.find({owner_id: req.params.id, currentState : false}, function(err, bookings){
       res.render('users/message', {user:user, bookings:bookings});
     });
+  });
+});
+
+// Favorite 화면
+router.get('/:id/favorite',needAuth,  function(req, res, next) {
+  User.findById(req.params.id, function(err, user) {
+    Favorite.find({user_id:req.params.id}, function(err, favorites){
+      if (err) {
+        return next(err);
+      }
+
+      res.render('users/favorite', {user:user, favorites:favorites});
+    });
+  });
+});
+
+// 호스트 되기 화면
+router.get('/:id/host',needAuth,  function(req, res, next) {
+    User.findById(req.params.id, function(err, user) {
+    if (err) {
+      return next(err);
+    }
+    
+    res.render('users/host', {user: user});
   });
 });
 
@@ -216,6 +245,7 @@ router.post('/:id/register', function(req, res, next) {
 
     var newRoom = new Room({
       owner_id: req.params.id,
+      owner_name: user.name,
       title: req.body.title,
       description: req.body.description,
       city: req.body.city,
@@ -242,11 +272,17 @@ router.post('/:id/register', function(req, res, next) {
 
 // 예약 승인
 router.post('/:id/confirm',function(req,res) {
-    Booking.update({_id:req.params.id,currentState:false}, {$set:{ currentState:true }}, function(err, results) {
-        if(err){
-            res.send(err);
-        }
-        res.redirect('back');
+    Booking.findById(req.params.id, function(err, booking){
+      Booking.update({_id:req.params.id,currentState:false}, {$set:{ currentState:true }}, function(err, results) {
+          Room.update({_id: booking.room_id}, {$inc:{ "reservation_count" : 1}}, function(err, room){
+              if(err){
+                  res.send(err);
+              }
+              req.flash('success', '예약이 승인처리되었습니다.');
+              res.redirect('back');
+          
+          });
+        })
     });
 });
 
@@ -305,12 +341,37 @@ router.delete('/:id', function(req, res, next) {
 
 // 예약 거절
 router.delete('/:id/message', function(req, res) {
-    delete req.session.user;
-    Booking.findOneAndRemove({_id: req.params.id}, function(err) {
+  Booking.findOneAndRemove({_id: req.params.id}, function(err) {
+    if (err) {
+        return console.log(err);
+    }
+    req.flash('success', '예약 요청을 거절했습니다.');
+    res.redirect('back');
+  });
+});
+
+// 예약 취소
+router.delete('/:id/reservation', function(req, res) {
+  Booking.findById(req.params.id, function(err, booking){
+    Room.update({_id: booking.room_id}, {$inc:{ "reservation_count" : -1}}, function(err, room){
+      Booking.findOneAndRemove({_id: req.params.id}, function(err) {
+          if (err) {
+              return console.log(err);
+          }
+          req.flash('success', '예약을 취소했습니다.');
+          res.redirect('back');
+      });
+    });
+  });
+});
+
+// favorite 삭제
+router.delete('/:id/favorite', function(req, res) {
+    Favorite.findOneAndRemove({_id: req.params.id}, function(err) {
         if (err) {
             return console.log(err);
         }
-        req.flash('success', '예약 요청을 거절했습니다.');
+        req.flash('success', 'favorite를 삭제했습니다.');
         res.redirect('back');
     });
 });

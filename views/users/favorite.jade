@@ -1,0 +1,36 @@
+include ../profile_layout
+.container
+    h1.page-header 메시지
+
+    table.table.table-striped.table-bordered
+        thead
+          tr
+            th 숙소 이름
+            th 숙소 도시
+            th 
+        tbody
+          each favorite in favorites
+            tr
+              td
+                p
+                  a(href="/rooms/#{favorites.room_id}")=favorite.room_title
+              td
+                p=favorite.room_city
+              td
+                a.btn.btn-xs.btn-default(data-id=favorite.id, class='delete') 삭제
+                
+                
+                
+                
+
+    form#deleteForm(style='display:none', method="POST")
+            
+    script(type='text/javascript').
+      $(".delete").click(function(e) {
+        var id = $(e.currentTarget).data('id');
+        if (confirm('정말 삭제하시겠습니까?')) {
+          console.log("success");
+          $("#deleteForm").attr('action', "/users/" + id + "/favorite?_method=DELETE").submit();          
+        }
+        return false;
+      });

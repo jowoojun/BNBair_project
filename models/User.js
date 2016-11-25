@@ -9,7 +9,8 @@ var schema = new Schema({
   ifHost : {type:Boolean, default:false},
   ifRoot : {type:Boolean, default:false},
   reservation : {type:Array},
-  rooms : {type: Array}
+  rooms : {type: Array},
+  createdAt: {type: Date, default: Date.now}
 });
 
 var User = mongoose.model('User', schema);

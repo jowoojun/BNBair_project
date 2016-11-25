@@ -10,6 +10,7 @@ include ../profile_layout
             th 체크인 날짜
             th 체크아웃 날짜
             th 숙박인원
+            th
         tbody
           each booking in bookings
             if (bookings.currentState)
@@ -19,6 +20,8 @@ include ../profile_layout
                 td= moment(booking.start_date).format('YYYY-MM-DD')
                 td= moment(booking.end_date).format('YYYY-MM-DD')
                 td= booking.occupancy
+                td
+                  a.btn.btn-xs.btn-default(data-id=booking.id, class='delete') 취소
 
       
       h3 예약 완료된 숙소
@@ -29,6 +32,7 @@ include ../profile_layout
             th 체크인 날짜
             th 체크아웃 날짜
             th 숙박인원
+            th
         tbody
           each booking in bookings
             if !(bookings.currentState)
@@ -38,3 +42,20 @@ include ../profile_layout
                 td= moment(booking.start_date).format('YYYY-MM-DD')
                 td= moment(booking.end_date).format('YYYY-MM-DD')
                 td= booking.occupancy
+                td
+                  a.btn.btn-xs.btn-default(data-id=booking.id, class='delete') 취소
+        
+    form#deleteForm(style='display:none', method="POST")
+            
+    script(type='text/javascript').
+      $(".delete").click(function(e) {
+        var id = $(e.currentTarget).data('id');
+        if (confirm('정말 삭제하시겠습니까?')) {
+          $("#deleteForm").attr('action', "/users/" + id + "/reservation?_method=DELETE").submit();          
+        }
+        return false;
+      });
+      
+
+    
+            

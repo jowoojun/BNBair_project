@@ -1,18 +1,19 @@
-div
-  .col-sm-8.col-md-9(style="width:100%")
+div.border.affix-top
+  .col-xs-8.col-md-9(style="width:100%")
+      h2.price 결제
       h3="￦"+room.price
   form(method='post', action='/rooms/#{room._id}/booking')
     .row
       .col-md-12(style="margin-bottom:20px;padding:0px")
-        .col-sm-4.col-md-6
+        .col-sm-4.col-md-6.reservation_input
           label(for='start_date') 체크인
           input.form-control(type='date', id='start_date', name='start_date')
-        .col-sm-4.col-md-6
+        .col-sm-4.col-md-6.reservation_input
           label(for='end_date') 체크아웃
           input.form-control(type='date', id='end_date', name='end_date')
             
 
-        .col-sm-4.col-md-6(style="margin-top:10px")
+        .col-sm-4.col-md-6.reservation_input
           label(for='occupancy') 숙박 인원
           .select
             select.form-control(name='occupancy')
@@ -53,4 +54,9 @@ div
                   span="￦"+(parseInt(room.price)+parseInt(room.price)*0.2)
       .book-it__btn-width
         button.btn.btn-primary.btn-large.btn-block(type='submit') 예약 요청
-        
+  div(style="padding:2em 0em 3em")
+    form(method='post', action='/rooms/#{room._id}/Favorite')
+        .book-it__btn-width
+          button.btn.btn-primary.btn-large.btn-block(type='submit') Favorite 목록에 추가
+    script(src='/javascripts/screen.js')
+    

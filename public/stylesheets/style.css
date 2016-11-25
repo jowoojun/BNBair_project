@@ -56,11 +56,20 @@ body {
   body > .main-content {
     min-height: 400px; }
 
-
+.reservation_input{
+  margin-top:10px;
+}
 
 .context{
   border-bottom: 1px solid #cccccc;
-  margin-bottom: 1em;
+  margin:0px -10px;
+  padding: 0px 0px 1em;
+}
+
+.border{
+  padding: 1em;
+  border : 1px solid #cccccc;
+  background-color: white;
 }
 
 .feature{
@@ -68,6 +77,7 @@ body {
   padding-bottom: 2em;
   margin-bottom: 1em;
 }
+
 .cover-img{
   margin-top: -1em;
   margin-bottom: 1em;
@@ -82,6 +92,16 @@ body {
 
 td.head{
   width :40%;
+}
+
+p.room{
+  font-size : 1em;
+  font-style: bold;
+  margin-top:0.5em;
+}
+
+.price{
+  margin-top:1em;
 }
 
 .jumbotron {
@@ -102,10 +122,12 @@ td.head{
   background-color: #f5f5f5;
   border-top: 1px solid #e5e5e5; }
 
+
+
 .footer {
   margin-top: 1em;
   width: 100%;
-  height: 60px;
+  height: 100px;
   background-color: #f5f5f5; }
   .footer .container {
     padding-right: 1em;
@@ -124,7 +146,7 @@ td.head{
     text-decoration: none;
     width: 100%;
     box-sizing: border-box;
-    padding: 0.5em 1em 0.5em 3em;
+    padding: 0em 1em 0.5em 3em;
     border-bottom: 1px solid #fff; }
     .side .section a:last-child {
       border-bottom: 0; }
@@ -141,3 +163,130 @@ td.head{
       padding-right: 1em; }
   .side .section a:hover, .side .section a.selected:hover {
     background-color: #337AB7; }
+div#messages div.fixed {
+  position: fixed;
+  bottom: 10px;
+  margin: 5% auto; 
+  left: 0;
+  right: 0;
+  width: 300px;
+  z-index: 2;
+}
+
+.hidden {
+    display: none;
+}
+
+.map_hidden{
+    display: none;
+}
+
+.scroll_hide{
+  overflow-x:hidden;
+  overflow-y:hidden;
+}
+
+#map{
+  z-index: 1;
+}
+
+#div_rooms{
+    width:100%;
+    height: auto; 
+    float:left;
+    text-align: left;
+    overflow-y:scroll;
+    overflow-x:hidden;
+  }
+  #div_map{
+    width:0%;
+    height:100%;
+    float:left;
+    white-space:nowrap; 
+    overflow:hidden;
+  }
+
+@media only screen and (min-device-width : 425px) {
+  div#messages div.fixed a {
+    position: fixed;
+    bottom: 10px;
+    margin: 5% auto; 
+    left: 0;
+    right: 0;
+    width: 70%;
+  }
+}
+
+@media only screen and (min-device-width : 1024px) {
+  p.room{
+    font-size : 1.5em;
+    margin-top:0.5em;
+  }
+
+  .price{
+    margin-top:0em;
+  }
+
+  .affix {
+    top: 100px;
+    width: 25%;
+
+  }
+
+  div#messages div.fixed a {
+    position: fixed;
+    width: 70%;
+  }
+  
+#div_rooms{
+    width:55%;
+    height: auto; 
+    margin-left:10px;
+    float:left;
+    text-align: left;
+    overflow-y:scroll;
+    overflow-x:hidden;
+  }
+
+  #div_map{
+    width:44%;
+    height:100%;
+    float:left;
+    white-space:nowrap; 
+    overflow:hidden;
+  }
+}
+
+/*
+@media only screen and (min-device-height : 700px) {
+  #div_rooms{
+    width:60%;
+    height:600px;
+    float:left;
+    text-align: left;
+    overflow-y:auto;
+    overflow-x:hidden;
+  }
+}
+
+@media only screen and (min-device-height : 900px) {
+  #div_rooms{
+    width:60%;
+    height:800px;
+    float:left;
+    text-align: left;
+    overflow-y:auto;
+    overflow-x:hidden;
+  }
+}
+
+@media only screen and (min-device-height : 1100px) {
+  #div_rooms{
+    width:60%;
+    height:880px;
+    float:left;
+    text-align: left;
+    overflow-y:auto;
+    overflow-x:hidden;
+  }
+}*/

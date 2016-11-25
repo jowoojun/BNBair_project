@@ -5,8 +5,11 @@ var mongoose = require('mongoose'),
 // 몽고DB에 스키마를 생성
 var schema = new Schema({
     room_id:{type:String, required:true},
+    room_hostname:{type:String, required:true},
+    user_id:{type:String, required:true},
     user_name: {type: String, required:true},
     content: {type: String, required:true},
+    comment: {type:String},
     createdAt: {type: Date, default: Date.now}}, {
     toJSON: { virtuals: true},
     toObject: {virtuals: true}

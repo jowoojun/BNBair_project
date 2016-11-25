@@ -3,6 +3,7 @@ var express = require('express'),
     Room = require('../models/Room');
     Booking = require('../models/Booking');
     Post = require('../models/Post');
+    Favorite = require('../models/Favorite');
 var router = express.Router();
 
 function needAuth(req, res, next) {
@@ -41,7 +42,13 @@ router.get('/', function(req,res,next){
 router.get('/:id', function(req,res,next){
   Room.findById(req.params.id, function(err, room) {
     Post.find({room_id : req.params.id}, function(err, posts){
-      res.render('rooms/room', {room:room, posts:posts});
+      if(!(req.session.user)){
+        res.render('rooms/room',{user:{}, room:room, posts:posts});
+      }else{
+        User.findById(req.session.user, function(err, user){
+          res.render('rooms/room', {user:user, room:room, posts:posts});
+        });
+      }
     });
   });
 });
@@ -82,25 +89,61 @@ router.post('/:id/booking',function(req,res) {
   });
 });
 
+// 후기남기기
 router.post('/:id/post',needAuth,function(req,res) {
-  Room.findById(req.params._id, function(err, room){ 
+  Room.update({_id:req.params.id}, {$inc: {"reply_count" : 1}}, function(err, result){
     User.findById(req.session.user, function(err,user){
-      var newPost = new Post({
+      Room.findById(req.params.id, function(err, room){ 
+          var newPost = new Post({
+              room_id: req.params.id,
+              room_hostname: room.owner_name,
+              user_id: req.session.user,
+              user_name: user.name,
+              content: req.body.reply
+          });  
+          
+          newPost.save(function(err){
+            if (err) {
+              res.send(err);
+            } else {
+              req.flash('success', '후기를 남겨주셔서 감사합니다.');
+              res.redirect('back');
+          }
+        });
+      });
+    });
+  });
+});
+
+router.post('/:id/comment',needAuth,function(req,res) {
+  Post.update(req.params._id, {$set:{ comment : req.body.comment }}, function(err, results) {
+    if (err) {
+      res.send(err);
+    } else {
+      res.redirect('back');
+    }
+  });
+});
+
+router.post('/:id/Favorite',needAuth,function(req,res) {
+  Room.findById(req.params.id, function(err, room){ 
+    User.findById(req.session.user, function(err,user){
+      var newFavorite = new Favorite({
           room_id: req.params.id,
-          user_name: user.name,
-          content: req.body.reply
+          user_id: req.session.user,
+          room_title : room.title,
+          room_city : room.city
       });  
 
-      newPost.save(function(err){
+      newFavorite.save(function(err){
         if (err) {
           res.send(err);
         } else {
-          req.flash('success', '후기를 남겨주셔서 감사합니다.');
+          req.flash('success', 'Favorite 목록에 추가되었습니다.');
           res.redirect('back');
         }
       });
     });
   });
 });
-
 module.exports = router;
