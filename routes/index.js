@@ -90,8 +90,8 @@ passport.use(new LocalStrategy({ // or whatever you want to use
 passport.use(new FacebookStrategy({
     // clientID: FACEBOOK_APP_ID,
     // clientSecret: FACEBOOK_APP_SECRET,
-    clientID: 644894649023564,
-    clientSecret: '0fbcb823f3c47b559e6e5534be0bcdd9',
+    clientID: FACEBOOK_APP_ID,
+    clientSecret: FACEBOOK_APP_SECRET',
     callbackURL: "/signin/facebook/callback",
     profileFields:['id','email','displayName']
   },
