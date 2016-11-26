@@ -44,7 +44,29 @@ include ../profile_layout
                 td= booking.occupancy
                 td
                   a.btn.btn-xs.btn-default(data-id=booking.id, class='delete') 취소
-        
+      if user.ifHost
+        h3 내 숙소 예약 현황
+        table.table.table-striped.table-bordered
+          thead
+            tr
+              th 숙소이름
+              td 예약자 이름
+              th 체크인 날짜
+              th 체크아웃 날짜
+              th 숙박인원
+              th
+          tbody
+            each booked in bookeds
+              if (booked.currentState)
+                tr
+                  td 
+                    a(href='/rooms/#{booked.room_id}')= booked.room_title
+                  td= booked.user_name
+                  td= moment(booked.start_date).format('YYYY-MM-DD')
+                  td= moment(booked.end_date).format('YYYY-MM-DD')
+                  td= booked.occupancy
+                  td
+                    a.btn.btn-xs.btn-default(data-id=booked.id, class='delete') 취소
     form#deleteForm(style='display:none', method="POST")
             
     script(type='text/javascript').
@@ -58,4 +80,3 @@ include ../profile_layout
       
 
     
-            

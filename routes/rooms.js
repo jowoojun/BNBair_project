@@ -38,6 +38,18 @@ router.get('/', function(req,res,next){
   });
 });
 
+// 숙소 예약 페이지
+router.get('/:id/booking',function(req,res) {
+  Room.findById(req.params.id, function(err, room) {
+      Post.find({room_id : req.params.id}, function(err, posts){
+          User.findById(req.session.user, function(err, user){
+            res.render('rooms/book', {user:user, room:room, posts:posts});
+        });
+      });
+  });
+});
+
+
 // 숙소 상세정보 페이지
 router.get('/:id', function(req,res,next){
   Room.findById(req.params.id, function(err, room) {
@@ -52,6 +64,8 @@ router.get('/:id', function(req,res,next){
     });
   });
 });
+
+
 
 // Post
 // 예약 기능

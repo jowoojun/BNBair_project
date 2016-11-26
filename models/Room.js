@@ -16,7 +16,8 @@ var schema = new Schema({
     start_date: {type: Date, required:true},
     end_date: {type: Date, required:true},
     reply_count : {type:Number, default:0},
-    reservation_count : {type:Number, default:0}
+    reservation_count : {type:Number, default:0},
+    filePath: {type: String},
 });
 
 var Room = mongoose.model('Room', schema);

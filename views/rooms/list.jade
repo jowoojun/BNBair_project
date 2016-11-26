@@ -8,8 +8,8 @@ block content
           each room in rooms
             a(href="/rooms/#{room._id}")
               .col-xs-12.col-sm-6(style="margin: 20px 0px;padding: 0px 10px")
-                .thumbnail
-                  img(src='images/bg.jpg' alt="사진")
+                .thumbnail(style="height:200px; overflow:hidden")
+                  img(src='#{room.filePath}' alt="사진")
                 .caption
                   h3Thumbnail="￦"+room.price +" "+ room.city+"에 위치한 집" 
                 .caption

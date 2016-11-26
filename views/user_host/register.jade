@@ -1,7 +1,7 @@
 include ../profile_layout
 .container
     h1.page-header 숙소 등록하기
-    form(action='/users/#{user._id}/register', method='POST')
+    form(action='/users/#{user._id}/register', method='POST' enctype="multipart/form-data")
       .form-group
         label(for='title') 숙소이름
         input.form-control(type='text', id='title', name='title', placeholder='title')
@@ -19,6 +19,9 @@ include ../profile_layout
       .form-group(style="overflow:hidden")
         label(for='occupancy') 최대 숙박 인원
         input.form-control(type='text', id='max_occupancy', name='max_occupancy')
+      .form-group(style="overflow:hidden")
+        label(for='file') 숙소 사진
+        input.form-control(type='file', id='file', name='file')
       .form-group
         label(for='address') 주소
         p

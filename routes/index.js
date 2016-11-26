@@ -3,6 +3,8 @@ var express = require('express'),
     Room = require('../models/Room');
 var router = express.Router();
 var _ = require('lodash');
+var pbkdf2Password = require('pbkdf2-password');
+var hasher = pbkdf2Password();
 
 var countries = ["서울", "부산", "인천", "대구", "대전", "광주", "수원", "울산", "창원", "고양", "용인", "성남", "부천", "청주", "안산",
  "전주", "천안", "남양주", "화성", "안양", "김해", "포항", "평택", "제주", "시흥", "의정부", "구미", "파주", "김포", "진주", "광명", 
@@ -47,14 +49,19 @@ router.post('/signin', function(req, res, next) {
     } else if (!user) {
       req.flash('danger', '존재하지 않는 사용자 입니다.');
       res.redirect('back');
-    } else if (user.password !== req.body.password) {
-      req.flash('danger', '비밀번호가 일치하지 않습니다.');
-      res.redirect('back');
-    } else {
-      req.session.user = user;
-      req.flash('success', '로그인 되었습니다.');
-      res.redirect('/');
-    }
+    } 
+    return hasher({password:req.body.password, salt:user.salt}, function(err, pass, salt, hash){
+      if(hash === user.password){
+        req.session.user = user;
+        req.session.save(function(){
+          req.flash('success', '로그인 되었습니다.');
+          res.redirect('/');
+        });
+      }else{
+        req.flash('danger', '비밀번호가 일치하지 않습니다.');
+        res.redirect('back');
+      }
+    });
   });
 });
 

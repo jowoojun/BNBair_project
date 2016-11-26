@@ -1,6 +1,6 @@
 div.border.affix-top
   .col-xs-8.col-md-9(style="width:100%")
-      h2.price 결제
+      h2.price 예약
       h3="￦"+room.price
   form(method='post', action='/rooms/#{room._id}/booking')
     .row
@@ -58,5 +58,15 @@ div.border.affix-top
     form(method='post', action='/rooms/#{room._id}/Favorite')
         .book-it__btn-width
           button.btn.btn-primary.btn-large.btn-block(type='submit') Favorite 목록에 추가
-    script(src='/javascripts/screen.js')
+      script(type='text/javascript').
+        $("div.border.affix-top").affix({offset: {top: 500} });
+        var template = _.template($('#template').html());
+        var width = (window.innerWidth > 0) ? window.innerWidth : screen.width;
+        if (width < 1023){
+            console.log(width);
+            $('#messages').append("<div class='fixed'><a href='/rooms/#{room._id}/booking' class='btn btn-lg btn-primary btn-block reserving'>예약 하기</a><div>");
+            $('.col-md-4#room-side').addClass("hidden");
+        }else{
+            $('.col-md-4#room-side.hidden').removeClass("hidden");
+        }
     

@@ -85,9 +85,9 @@ body {
   -moz-background-size: 100%;
   -o-background-size: 100%;
   background-size: 100%;
-  min-height: 40em;
+  min-height: 15em;
   color: #fff;
-  background-image: url('/images/back.jpg') no-repeat left top;
+  background-repeat: no-repeat;
   }
 
 td.head{
@@ -215,8 +215,15 @@ div#messages div.fixed {
     right: 0;
     width: 70%;
   }
+  .cover-img{
+    min-height: 22em;
+  }
 }
-
+@media only screen and (min-device-width : 768px) {
+  .cover-img{
+    min-height: 30em;
+  }
+}
 @media only screen and (min-device-width : 1024px) {
   p.room{
     font-size : 1.5em;
@@ -255,38 +262,7 @@ div#messages div.fixed {
     white-space:nowrap; 
     overflow:hidden;
   }
-}
-
-/*
-@media only screen and (min-device-height : 700px) {
-  #div_rooms{
-    width:60%;
-    height:600px;
-    float:left;
-    text-align: left;
-    overflow-y:auto;
-    overflow-x:hidden;
+  .cover-img{
+    min-height: 40em;
   }
 }
-
-@media only screen and (min-device-height : 900px) {
-  #div_rooms{
-    width:60%;
-    height:800px;
-    float:left;
-    text-align: left;
-    overflow-y:auto;
-    overflow-x:hidden;
-  }
-}
-
-@media only screen and (min-device-height : 1100px) {
-  #div_rooms{
-    width:60%;
-    height:880px;
-    float:left;
-    text-align: left;
-    overflow-y:auto;
-    overflow-x:hidden;
-  }
-}*/
