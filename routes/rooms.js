@@ -7,7 +7,7 @@ var express = require('express'),
 var router = express.Router();
 
 function needAuth(req, res, next) {
-    if (req.session.user) {
+    if (req.user) {
       next();
     } else {
       req.flash('danger', '로그인이 필요합니다.');
@@ -42,7 +42,7 @@ router.get('/', function(req,res,next){
 router.get('/:id/booking',function(req,res) {
   Room.findById(req.params.id, function(err, room) {
       Post.find({room_id : req.params.id}, function(err, posts){
-          User.findById(req.session.user, function(err, user){
+          User.findById(req.user.id, function(err, user){
             res.render('rooms/book', {user:user, room:room, posts:posts});
         });
       });
@@ -54,10 +54,10 @@ router.get('/:id/booking',function(req,res) {
 router.get('/:id', function(req,res,next){
   Room.findById(req.params.id, function(err, room) {
     Post.find({room_id : req.params.id}, function(err, posts){
-      if(!(req.session.user)){
+      if(!(req.user)){
         res.render('rooms/room',{user:{}, room:room, posts:posts});
       }else{
-        User.findById(req.session.user, function(err, user){
+        User.findById(req.user.id, function(err, user){
           res.render('rooms/room', {user:user, room:room, posts:posts});
         });
       }
@@ -75,7 +75,7 @@ router.post('/:id/booking',function(req,res) {
   //   req.flash('danger', err);
   //   return res.redirect('back');
   // }
-  User.findById(req.session.user, function(err, user){
+  User.findById(req.user.id, function(err, user){
     Room.findById(req.params.id, function(err, room){
       var newBooking = new Booking({
           room_id: req.params.id,
@@ -106,12 +106,12 @@ router.post('/:id/booking',function(req,res) {
 // 후기남기기
 router.post('/:id/post',needAuth,function(req,res) {
   Room.update({_id:req.params.id}, {$inc: {"reply_count" : 1}}, function(err, result){
-    User.findById(req.session.user, function(err,user){
+    User.findById(req.user.id, function(err,user){
       Room.findById(req.params.id, function(err, room){ 
           var newPost = new Post({
               room_id: req.params.id,
               room_hostname: room.owner_name,
-              user_id: req.session.user,
+              user_id: req.user.id,
               user_name: user.name,
               content: req.body.reply
           });  
@@ -141,10 +141,10 @@ router.post('/:id/comment',needAuth,function(req,res) {
 
 router.post('/:id/Favorite',needAuth,function(req,res) {
   Room.findById(req.params.id, function(err, room){ 
-    User.findById(req.session.user, function(err,user){
+    User.findById(req.user.id, function(err,user){
       var newFavorite = new Favorite({
           room_id: req.params.id,
-          user_id: req.session.user,
+          user_id: req.user.id,
           room_title : room.title,
           room_city : room.city
       });  

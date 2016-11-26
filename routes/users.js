@@ -9,8 +9,9 @@ var multer = require('multer');
 var upload = multer({ dest: '/tmp' })
 var router = express.Router();
 var hasher = pbkdf2Password();
+
 function needAuth(req, res, next) {
-    if (req.session.user) {
+    if (req.user) {
       next();
     } else {
       req.flash('danger', '로그인이 필요합니다.');
@@ -36,11 +37,11 @@ function validateForm(form, options) {
     return '비밀번호를 입력해주세요.';
   }
 
-  if (form.password !== form.password_confirmation) {
+  if (form.change_password !== form.password_confirmation) {
     return '비밀번호가 일치하지 않습니다.';
   }
 
-  if (form.password.length < 6) {
+  if (form.change_password.length < 6) {
     return '비밀번호는 6글자 이상이어야 합니다.';
   }
 
@@ -50,14 +51,14 @@ function validateForm(form, options) {
 // GET
 // 사용자 목록 화면
 router.get('/', needAuth, function(req, res, next) {
-    var email = req.session.user.email.trim();
+    var email = req.user.email.trim();
 
     if(email === "root@com"){
        User.find({}, function(err, users) {
           if (err) {
             return next(err);
           }
-          User.findById(req.session.user, function(err, user) {
+          User.findById(req.user, function(err, user) {
             if (err) {
               return next(err);
             }
@@ -333,12 +334,12 @@ router.put('/:id', function(req, res, next) {
       req.flash('danger', '존재하지 않는 사용자입니다.');
       return res.redirect('back');
     }
-    hasher({password:req.body.current_password, salt:user.salt}, function(err, pass, salt, hash){
+    hasher({password:req.body.password, salt:user.salt}, function(err, pass, salt, hash){
       if(err){
         console.log(err);
       }
       if(hash === user.password){
-          return hasher({password:req.body.password}, function(err, pass, salt, hash){
+          return hasher({password:req.body.change_password}, function(err, pass, salt, hash){
               if(err){
                 console.log(err);
               }
@@ -368,7 +369,7 @@ router.put('/:id', function(req, res, next) {
 // DELETE
 // 사용자 삭제
 router.delete('/:id', function(req, res, next) {
-  delete req.session.user;
+  req.logout();
   User.findOneAndRemove({_id: req.params.id}, function(err) {
     if (err) {
       return next(err);

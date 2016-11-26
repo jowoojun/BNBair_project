@@ -13,7 +13,7 @@ include ../profile_layout
             th
         tbody
           each booking in bookings
-            if (bookings.currentState)
+            if booking.currentState
               tr
                 td 
                   a(href='/rooms/#{booking.room_id}')= booking.room_title
@@ -35,7 +35,7 @@ include ../profile_layout
             th
         tbody
           each booking in bookings
-            if !(bookings.currentState)
+            if !(booking.currentState)
               tr
                 td 
                   a(href='/rooms/#{booking.room_id}')= booking.room_title
@@ -57,7 +57,7 @@ include ../profile_layout
               th
           tbody
             each booked in bookeds
-              if (booked.currentState)
+              if booked.currentState
                 tr
                   td 
                     a(href='/rooms/#{booked.room_id}')= booked.room_title
