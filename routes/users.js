@@ -6,7 +6,7 @@ var express = require('express'),
 var pbkdf2Password = require('pbkdf2-password');
 var fs = require("fs");
 var multer = require('multer');
-var upload = multer({ dest: '/tmp' })
+var upload = multer({ dest: '/tmp' });
 var router = express.Router();
 var hasher = pbkdf2Password();
 
@@ -20,6 +20,35 @@ function needAuth(req, res, next) {
 }
 
 function validateForm(form, options) {
+  var name = form.name || "";
+  var email = form.email || "";
+  name = name.trim();
+  email = email.trim();
+
+  if (!name) {
+    return '이름을 입력해주세요.';
+  }
+
+  if (!email) {
+    return '이메일을 입력해주세요.';
+  }
+
+  if (!form.password && options.needPassword) {
+    return '비밀번호를 입력해주세요.';
+  }
+
+  if (form.password !== form.password_confirmation) {
+    return '비밀번호가 일치하지 않습니다.';
+  }
+
+  if (form.password.length < 6) {
+    return '비밀번호는 6글자 이상이어야 합니다.';
+  }
+
+  return null;
+}
+
+function edit_validateForm(form, options) {
   var name = form.name || "";
   var email = form.email || "";
   name = name.trim();
@@ -320,7 +349,7 @@ router.post('/:id/confirm',function(req,res) {
 // PUT
 // 사용자 정보변경
 router.put('/:id', function(req, res, next) {
-  var err = validateForm(req.body);
+  var err = edit_validateForm(req.body);
   if (err) {
     req.flash('danger', err);
     return res.redirect('/');

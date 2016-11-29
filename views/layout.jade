@@ -9,7 +9,7 @@ html(lang='ko')
     link(rel='stylesheet', href='/bower_components/bootstrap/dist/css/bootstrap.css')
     link(rel='stylesheet', href='/bower_components/font-awesome/css/font-awesome.min.css')
     link(rel='stylesheet', href='/stylesheets/style.css')
-    script(type="text/javascript", src="//apis.daum.net/maps/maps3.js?apikey=발급받은 API주소&libraries=services")
+    script(type="text/javascript", src="//apis.daum.net/maps/maps3.js?apikey=6fc5875c2c5d7c500c64cd9df159d79b&libraries=services")
     script(type='text/javascript', src='/bower_components/jquery/dist/jquery.js')
     script(type='text/javascript', src='/bower_components/bootstrap/dist/js/bootstrap.js')
     script(type='text/javascript', src='/bower_components/lodash/lodash.min.js')
@@ -17,7 +17,7 @@ html(lang='ko')
   body
     block top-nav
       include ./includes/topnav
-    block hero-unit
+    block flash
     if flashMessages
       each texts, type in flashMessages
         .container

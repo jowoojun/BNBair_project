@@ -3,7 +3,7 @@ var express = require('express'),
     Room = require('../models/Room');
 var router = express.Router();
 var _ = require('lodash');
-var findOrCreate = require('mongoose-findorcreate')
+var findOrCreate = require('mongoose-findorcreate');
 var pbkdf2Password = require('pbkdf2-password');
 var hasher = pbkdf2Password();
 var passport = require('passport');
@@ -88,19 +88,20 @@ passport.use(new LocalStrategy({ // or whatever you want to use
 
 // passport facebook 규칙에 따라 실행 2
 passport.use(new FacebookStrategy({
-    // clientID: FACEBOOK_APP_ID,
-    // clientSecret: FACEBOOK_APP_SECRET,
-    clientID: 644894649023564,
-    clientSecret: '0fbcb823f3c47b559e6e5534be0bcdd9',
+    // clientID: process.env.FACEBOOK_APP_ID,
+    // clientSecret: process.env.FACEBOOK_APP_SECRET,
+    clientID: 1723350404659483,
+    clientSecret: 'e0b9ce51849d6701d192dc4831845252',
     callbackURL: "/signin/facebook/callback",
     profileFields:['id','email','displayName']
   },
   function(accessToken, refreshToken, profile, done) {
     // profile : 페이스북 상에서의 id가 담겨있다.
-    User.findOrCreate({id: profile.id, name : profile.displayName, email: profile.emails[0].value}, function(err, user) {
+    User.findOrCreate({facebook_id: profile.id, name : profile.displayName, email: profile.emails[0].value.trim()}, function(err, user) {
       if (err) { 
         return done(err); 
       }
+      console.log(user);
       done(null, user);
     });
   }
