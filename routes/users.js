@@ -9,7 +9,6 @@ var multer = require('multer');
 var upload = multer({ dest: '/tmp' });
 var router = express.Router();
 var hasher = pbkdf2Password();
-
 function needAuth(req, res, next) {
     if (req.user) {
       next();
@@ -104,6 +103,8 @@ router.get('/', needAuth, function(req, res, next) {
 router.get('/new', function(req, res, next) {
   res.render('new', {messages: req.flash()});
 });
+
+
 
 // 사용자 정보 편집 화면
 router.get('/:id/edit', needAuth, function(req, res, next) {
@@ -216,6 +217,8 @@ router.get('/:id/rooms', needAuth, function(req, res, next) {
   });
 });
 
+
+
 // POST
 // 회원가입
 router.post('/', function(req, res, next) {
@@ -282,50 +285,31 @@ router.post('/:id/register', upload.single("file"), function(req, res, next) {
     if (err) {
       return next(err);
     }
-    var file = "./public/images/" +  req.file.originalname;
-    var db_new_location = 'images/' + req.file.originalname;
-    fs.readFile(req.file.path, function (err, data) {
-        fs.writeFile(file, data, function (err) {
-         if( err ){
-              console.error( err );
-              response = {
-                   message: 'Sorry, file couldn\'t be uploaded.',
-                   filename: req.file.originalname
-              };
-         }else{
-               response = {
-                   message: 'File uploaded successfully',
-                   filename: req.file.originalname
-              };
-        }
+    var newRoom = new Room({
+      owner_id: req.params.id,
+      owner_name: user.name,
+      title: req.body.title,
+      description: req.body.description,
+      city: req.body.city,
+      post_number:req.body.post_number,
+      address: req.body.address,
+      price: req.body.price,
+      facilities: req.body.facilities,
+      role: req.body.role,
+      max_occupancy : req.body.max_occupancy,
+      start_date: req.body.start_date,
+      end_date: req.body.end_date,
+      filePath : req.body.url
+    }); 
 
-        var newRoom = new Room({
-          owner_id: req.params.id,
-          owner_name: user.name,
-          title: req.body.title,
-          description: req.body.description,
-          city: req.body.city,
-          post_number:req.body.post_number,
-          address: req.body.address,
-          price: req.body.price,
-          facilities: req.body.facilities,
-          role: req.body.role,
-          max_occupancy : req.body.max_occupancy,
-          start_date: req.body.start_date,
-          end_date: req.body.end_date,
-          filePath : db_new_location
-        }); 
-
-        newRoom.save(function(err) {
-          if (err) {
-            console.log(err);
-            res.redirect('back');
-          } else {
-            req.flash('success', '새로운 숙소가 등록되었습니다.');
-            res.redirect('/');
-          }
-        });
-      });
+    newRoom.save(function(err) {
+      if (err) {
+        req.flash('danger',err);
+        res.redirect('back');
+      } else {
+        req.flash('success', '새로운 숙소가 등록되었습니다.');
+        res.redirect('/');
+      }
     });
   });
 });

@@ -34,7 +34,7 @@ function validateForm(form, options) {
 // 숙소 목록 페이지
 router.get('/', function(req,res,next){
   Room.find({}, function(err, rooms) {
-    res.render('rooms/list',{rooms:rooms});
+    res.render('rooms/list', {rooms:rooms});
   });
 });
 

@@ -21,7 +21,8 @@ include ../profile_layout
         input.form-control(type='text', id='max_occupancy', name='max_occupancy')
       .form-group(style="overflow:hidden")
         label(for='file') 숙소 사진
-        input.form-control(type='file', id='file', name='file')
+        input#file.form-control(type="file")
+        input#url.form-control(type="text", readonly="readonly", name="url", value="")
       .form-group
         label(for='address') 주소
         p
@@ -50,7 +51,7 @@ include ../profile_layout
         button.btn.btn-primary(type='submit') 등록하기
       
           script(src="http://dmaps.daum.net/map_js_init/postcode.v2.js")
-          script.
+          script(type='text/javascript').
             // 우편번호 찾기 찾기 화면을 넣을 element
             var element_wrap = document.getElementById('wrap');
 
@@ -107,3 +108,29 @@ include ../profile_layout
                 // iframe을 넣은 element를 보이게 한다.
                 element_wrap.style.display = 'block';
             }
+
+        script(type='text/javascript').
+          $(function() {
+            $("#file").change(function() {
+              var file = $("#file")[0].files[0];
+              if (file) {
+                var url = "/s3?filename=" + file.name + "&type=" + file.type;
+                
+                $.getJSON(url, function(resp) {
+                  console.log(url);
+                  $.ajax({
+                    url: resp.signedRequest,
+                    method: 'PUT',
+                    data: file,
+                    headers: {'x-amz-acl': 'public-read', 'Content-Type': file.type},
+                    processData: false, 
+                    contentType: file.type,
+                    success: function() {
+                      $("#url").val(resp.url);
+                      console.log(url);
+                    }
+                  });
+                });
+              }
+            });
+          });

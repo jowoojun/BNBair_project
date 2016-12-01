@@ -9,7 +9,7 @@ block content
             a(href="/rooms/#{room._id}")
               .col-xs-12.col-sm-6(style="margin: 20px 0px;padding: 0px 10px")
                 .thumbnail(style="height:200px; overflow:hidden")
-                  img(src='#{room.filePath}' alt="사진")
+                  img(src=room.filePath alt="사진")
                 .caption
                   h3Thumbnail="￦"+room.price +" "+ room.city+"에 위치한 집" 
                 .caption
@@ -37,8 +37,13 @@ block content
                         infowindow.open(map, marker);
 
                         // 지도의 중심을 결과값으로 받은 위치로 이동시킵니다
-                        map.setCenter(coords);
+                        
                     } 
+                });
+                // 서울시청을 중심
+                geocoder.addr2coord('서울특별시 중구 예장동 삼일대로 231', function(status, center) {
+                    var coords = new daum.maps.LatLng(center.addr[0].lat, center.addr[0].lng);
+                    map.setCenter(coords);
                 });
             
     
@@ -68,5 +73,4 @@ block content
         var imageSrc = "http://i1.daumcdn.net/localimg/localimages/07/mapapidoc/markerStar.png";
         
         map.relayout();
-        map.center(position);
     script(src='/javascripts/screen.js')

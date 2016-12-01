@@ -19,6 +19,9 @@ var mongoose   = require('mongoose');
 // passport
 var passport = require('passport');
 var LocalStrategy = require('passport-local').Strategy;
+// 아마존sdk
+var aws = require('aws-sdk');
+var S3_BUCKET = process.env.S3_BUCKET;
 
 // 라우터 나누기
 var routes = require('./routes/index');
@@ -80,6 +83,31 @@ app.use(function(req, res, next) {
 app.use('/', routes);
 app.use('/users', users);
 app.use('/rooms', rooms);
+
+// 아마존 이미지
+app.get('/s3', function(req, res, next) {
+  var s3 = new aws.S3({region: 'ap-northeast-2'});
+  var filename = req.query.filename;
+  var type = req.query.type;
+  
+  s3.getSignedUrl('putObject', {
+    Bucket: S3_BUCKET,
+    Key: filename,
+    Expires: 900,
+    ContentType: type,
+    ACL: 'public-read'
+  }, function(err, data) {
+    if (err) {
+      console.log(err);
+      return res.json({err: err});
+    }
+    
+    res.json({
+      signedRequest: data,
+      url:"https://${S3_BUCKET}.s3.amazonaws.com/${filename}"
+    });
+  });
+});
 
 // catch 404 and forward to error handler
 app.use(function(req, res, next) {
