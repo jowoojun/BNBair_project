@@ -88,10 +88,8 @@ passport.use(new LocalStrategy({ // or whatever you want to use
 
 // passport facebook 규칙에 따라 실행 2
 passport.use(new FacebookStrategy({
-    // clientID: process.env.FACEBOOK_APP_ID,
-    // clientSecret: process.env.FACEBOOK_APP_SECRET,
-    clientID: 1723350404659483,
-    clientSecret: 'e0b9ce51849d6701d192dc4831845252',
+    clientID: process.env.FACEBOOK_APP_ID,
+    clientSecret: process.env.FACEBOOK_APP_SECRET,
     callbackURL: "/signin/facebook/callback",
     profileFields:['id','email','displayName']
   },
@@ -101,7 +99,6 @@ passport.use(new FacebookStrategy({
       if (err) { 
         return done(err); 
       }
-      console.log(user);
       done(null, user);
     });
   }

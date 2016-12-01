@@ -9,7 +9,7 @@ include ../profile_layout
               td
                 a(href="/rooms/#{booking.room_id}")=booking.room_title
                 |에 
-                a(href="/user/#{booking.user_id}")=booking.user_name
+                a(href="/users/#{booking.user_id}/profile")=booking.user_name
                 ="님이 " + moment(booking.start_date).format('YYYY-MM-DD') + "부터 " + moment(booking.end_date).format('YYYY-MM-DD') + "까지" + booking.occupancy + " 명의 예약을 신청했습니다."
               td
                 form(action='/users/#{booking._id}/confirm', method='POST')

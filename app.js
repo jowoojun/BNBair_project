@@ -38,7 +38,7 @@ if (app.get('env') === 'development') {
 app.locals.moment = require('moment');
 
 // 몽고 디비 연결
-mongoose.connect('mongodb://airBNB:whdnwnsBNB@ds047305.mlab.com:47305/bnbair');
+mongoose.connect(process.env.MONGODB);
 mongoose.connection.on('error', console.log);
 
 // uncomment after placing your favicon in /public

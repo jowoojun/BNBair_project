@@ -283,7 +283,7 @@ router.post('/:id/register', upload.single("file"), function(req, res, next) {
       return next(err);
     }
     var file = "./public/images/" +  req.file.originalname;
-    var db_new_location = 'images/'+req.file.originalname;
+    var db_new_location = 'images/' + req.file.originalname;
     fs.readFile(req.file.path, function (err, data) {
         fs.writeFile(file, data, function (err) {
          if( err ){
