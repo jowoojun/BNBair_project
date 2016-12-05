@@ -4,11 +4,11 @@ var express = require('express'),
     Booking = require('../models/Booking');
     Favorite = require('../models/Favorite');
 var pbkdf2Password = require('pbkdf2-password');
-var fs = require("fs");
-var multer = require('multer');
-var upload = multer({ dest: '/tmp' });
 var router = express.Router();
 var hasher = pbkdf2Password();
+var multer = require('multer');
+var upload = multer({ dest: '/tmp' });
+
 function needAuth(req, res, next) {
     if (req.user) {
       next();
@@ -73,6 +73,42 @@ function edit_validateForm(form, options) {
     return '비밀번호는 6글자 이상이어야 합니다.';
   }
 
+  return null;
+}
+
+function Room_validateForm(form){
+  var title = form.title || "";
+  var city = form.city || "";
+  title = title.trim();
+  city = city.trim();
+
+  if(!title){
+    return '방이름을 입력해주세요.';
+  }
+
+  if(!city){
+    return '도시를 입력해주세요.'; 
+  }
+
+  if(!form.start_date){
+    return '시작날짜를 입력해주세요.';
+  }
+  
+  if(!form.end_date){
+    return '종료날짜를 입력해주세요.';
+  }
+
+  if(!form.address){
+    return '방 주소를 입력해주세요.';
+  }
+
+  if(!form.price){
+    return '가격을 입력해주세요.';
+  }
+
+  if(!form.max_occupancy){
+    return '최대 숙박인원을 입력해주세요.';
+  }
   return null;
 }
 
@@ -281,10 +317,19 @@ router.post('/:id', function(req, res, next) {
 
 // 숙소등록
 router.post('/:id/register', upload.single("file"), function(req, res, next) {
+  var err = Room_validateForm(req.body);
+    if (err) {
+      req.flash('danger', err);
+      return res.redirect('back');
+    }
+
   User.findById(req.params.id, function(err, user) {
     if (err) {
       return next(err);
     }
+
+    
+    
     var newRoom = new Room({
       owner_id: req.params.id,
       owner_name: user.name,

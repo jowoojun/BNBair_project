@@ -37,13 +37,9 @@ block content
                         infowindow.open(map, marker);
 
                         // 지도의 중심을 결과값으로 받은 위치로 이동시킵니다
+                        map.setCenter(coords);
                         
                     } 
-                });
-                // 서울시청을 중심
-                geocoder.addr2coord('서울특별시 중구 예장동 삼일대로 231', function(status, center) {
-                    var coords = new daum.maps.LatLng(center.addr[0].lat, center.addr[0].lng);
-                    map.setCenter(coords);
                 });
             
     
