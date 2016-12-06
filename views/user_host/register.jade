@@ -8,18 +8,18 @@ include ../profile_layout
       .form-group
         label(for='email') 도시
         input.form-control(type='text', id='city', name='city', placeholder='city')
-      .form-group(style="overflow:hidden")
-        .date(style="float:left; width:20%")
+      .form-group.date
+        .date(style="width:100%")
           label(for='start_date') 시작 날짜
           input.form-control(type='date', id='start_date', name='start_date')
-        .date(style="overflow:hidden;margin:0px 20px;float:left; width:20%")
+      .form-group.date
+        .date(style="width:100%")
           label(for='end_date') 종료 날짜
           input.form-control(type='date', id='end_date', name='end_date')
-          .col-sm-4.col-md-5(style="margin-top:10px")
-      .form-group(style="overflow:hidden")
+      .form-group
         label(for='occupancy') 최대 숙박 인원
         input.form-control(type='text', id='max_occupancy', name='max_occupancy')
-      .form-group(style="overflow:hidden")
+      .form-group
         label(for='file') 숙소 사진
         input#file.form-control(type="file")
         input#url.form-control(type="text", readonly="readonly", name="url", value="")

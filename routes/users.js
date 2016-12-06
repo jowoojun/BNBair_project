@@ -231,7 +231,7 @@ router.get('/:id/host',needAuth,  function(req, res, next) {
 });
 
 // 숙소등록화면
-router.get('/:id/register', needAuth,  function(req, res, next) {
+router.get('/:id/register',  function(req, res, next) {
   User.findById(req.params.id, function(err, user) {
     if (err) {
       return next(err);

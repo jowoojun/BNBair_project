@@ -39,7 +39,7 @@ router.get('/', function(req,res,next){
 });
 
 // 숙소 예약 페이지
-router.get('/:id/booking',function(req,res) {
+router.get('/:id/booking', needAuth ,function(req,res) {
   Room.findById(req.params.id, function(err, room) {
       Post.find({room_id : req.params.id}, function(err, posts){
           User.findById(req.user.id, function(err, user){
@@ -70,11 +70,6 @@ router.get('/:id', function(req,res,next){
 // Post
 // 예약 기능
 router.post('/:id/booking',function(req,res) {
-  // var err = validateForm(req.body);
-  // if (err) {
-  //   req.flash('danger', err);
-  //   return res.redirect('back');
-  // }
   User.findById(req.user.id, function(err, user){
     Room.findById(req.params.id, function(err, room){
       var newBooking = new Booking({

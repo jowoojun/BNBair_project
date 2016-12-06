@@ -90,6 +90,8 @@ body {
   background-repeat: no-repeat;
   }
 
+
+
 td.head{
   width :40%;
 }
@@ -257,5 +259,11 @@ div#messages div.fixed {
   }
   .cover-img{
     min-height: 40em;
+  }
+
+  .date{
+    width:45%;
+    margin-right:20px;
+    float:left;
   }
 }
