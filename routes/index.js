@@ -95,7 +95,7 @@ passport.use(new FacebookStrategy({
   },
   function(accessToken, refreshToken, profile, done) {
     // profile : 페이스북 상에서의 id가 담겨있다.
-    User.findOrCreate({facebook_id: profile.id, name : profile.displayName, email: profile.emails[0].value.trim()}, function(err, user) {
+    User.findOrCreate({facebook_id: profile.id, name : profile.displayName, email: profile.emails[0].value || null}, function(err, user) {
       if (err) { 
         return done(err); 
       }
@@ -114,7 +114,7 @@ router.post('/signin', passport.authenticate('local', {
 
 // passport facebook 첫번째로 실행 1
 router.get('/signin/facebook',
-  passport.authenticate('facebook', { scope: 'email' })
+  passport.authenticate('facebook', { scope: ['email'] })
 );
 
 
