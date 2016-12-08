@@ -38,18 +38,6 @@ router.get('/', function(req,res,next){
   });
 });
 
-// 숙소 예약 페이지
-router.get('/:id/booking', needAuth ,function(req,res) {
-  Room.findById(req.params.id, function(err, room) {
-      Post.find({room_id : req.params.id}, function(err, posts){
-          User.findById(req.user.id, function(err, user){
-            res.render('rooms/book', {user:user, room:room, posts:posts});
-        });
-      });
-  });
-});
-
-
 // 숙소 상세정보 페이지
 router.get('/:id', function(req,res,next){
   Room.findById(req.params.id, function(err, room) {
@@ -65,7 +53,16 @@ router.get('/:id', function(req,res,next){
   });
 });
 
-
+// 숙소 예약 페이지
+router.get('/:id/booking', needAuth ,function(req,res) {
+  Room.findById(req.params.id, function(err, room) {
+      Post.find({room_id : req.params.id}, function(err, posts){
+          User.findById(req.user.id, function(err, user){
+            res.render('rooms/book', {user:user, room:room, posts:posts});
+        });
+      });
+  });
+});
 
 // Post
 // 예약 기능
@@ -124,6 +121,7 @@ router.post('/:id/post',needAuth,function(req,res) {
   });
 });
 
+// 관리자용 댓글달기
 router.post('/:id/comment',needAuth,function(req,res) {
   Post.update(req.params._id, {$set:{ comment : req.body.comment }}, function(err, results) {
     if (err) {
@@ -134,6 +132,7 @@ router.post('/:id/comment',needAuth,function(req,res) {
   });
 });
 
+// 즐겨찾기 추가
 router.post('/:id/Favorite',needAuth,function(req,res) {
   Room.findById(req.params.id, function(err, room){ 
     User.findById(req.user.id, function(err,user){
@@ -155,4 +154,5 @@ router.post('/:id/Favorite',needAuth,function(req,res) {
     });
   });
 });
+
 module.exports = router;

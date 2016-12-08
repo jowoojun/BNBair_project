@@ -3,9 +3,7 @@ var express = require('express'),
     Room = require('../models/Room');
     Booking = require('../models/Booking');
     Favorite = require('../models/Favorite');
-var pbkdf2Password = require('pbkdf2-password');
 var router = express.Router();
-var hasher = pbkdf2Password();
 var multer = require('multer');
 var upload = multer({ dest: '/tmp' });
 
@@ -16,64 +14,6 @@ function needAuth(req, res, next) {
       req.flash('danger', '로그인이 필요합니다.');
       res.redirect('/signin');
     }
-}
-
-function validateForm(form, options) {
-  var name = form.name || "";
-  var email = form.email || "";
-  name = name.trim();
-  email = email.trim();
-
-  if (!name) {
-    return '이름을 입력해주세요.';
-  }
-
-  if (!email) {
-    return '이메일을 입력해주세요.';
-  }
-
-  if (!form.password && options.needPassword) {
-    return '비밀번호를 입력해주세요.';
-  }
-
-  if (form.password !== form.password_confirmation) {
-    return '비밀번호가 일치하지 않습니다.';
-  }
-
-  if (form.password.length < 6) {
-    return '비밀번호는 6글자 이상이어야 합니다.';
-  }
-
-  return null;
-}
-
-function edit_validateForm(form, options) {
-  var name = form.name || "";
-  var email = form.email || "";
-  name = name.trim();
-  email = email.trim();
-
-  if (!name) {
-    return '이름을 입력해주세요.';
-  }
-
-  if (!email) {
-    return '이메일을 입력해주세요.';
-  }
-
-  if (!form.password && options.needPassword) {
-    return '비밀번호를 입력해주세요.';
-  }
-
-  if (form.change_password !== form.password_confirmation) {
-    return '비밀번호가 일치하지 않습니다.';
-  }
-
-  if (form.change_password.length < 6) {
-    return '비밀번호는 6글자 이상이어야 합니다.';
-  }
-
-  return null;
 }
 
 function Room_validateForm(form){
@@ -126,30 +66,13 @@ router.get('/', needAuth, function(req, res, next) {
             if (err) {
               return next(err);
             }
-            res.render('users/index', {users: users,user:user});
+            res.render('users/userList', {users: users,user:user});
           });
         });
     }
     else{
         res.redirect('../');
     }
-});
-
-// 회원가입화면
-router.get('/new', function(req, res, next) {
-  res.render('new', {messages: req.flash()});
-});
-
-
-
-// 사용자 정보 편집 화면
-router.get('/:id/edit', needAuth, function(req, res, next) {
-  User.findById(req.params.id, function(err, user) {
-    if (err) {
-      return next(err);
-    }
-    res.render('users/edit', {user: user});
-  });
 });
 
 // 개인 화면
@@ -160,6 +83,16 @@ router.get('/:id', function(req, res, next) {
     }
 
     res.render('users/show', {user: user});
+  });
+});
+
+// 사용자 정보 편집 화면
+router.get('/:id/edit', needAuth, function(req, res, next) {
+  User.findById(req.params.id, function(err, user) {
+    if (err) {
+      return next(err);
+    }
+    res.render('users/edit', {user: user});
   });
 });
 
@@ -253,48 +186,7 @@ router.get('/:id/rooms', needAuth, function(req, res, next) {
   });
 });
 
-
-
 // POST
-// 회원가입
-router.post('/', function(req, res, next) {
-  var err = validateForm(req.body, {needPassword: true});
-  if (err) {
-    req.flash('danger', err);
-    return res.redirect('back');
-  }
-  User.findOne({email: req.body.email}, function(err, user) {
-    if (err) {
-      return next(err);
-    }
-    if (user) {
-      req.flash('danger', '동일한 이메일 주소가 이미 존재합니다.');
-      res.redirect('back');
-    }
-    
-    hasher({password:req.body.password}, function(err, pass, salt, hash){
-        var newUser = new User({
-          name: req.body.name,
-          email: req.body.email,
-          password:hash,
-          salt: salt
-        });
-
-        if(newUser.email === 'root@com')
-          newUser.ifRoot = true;
-
-        newUser.save(function(err) {
-          if (err) {
-            return next(err);
-          } else {
-            req.flash('success', '가입이 완료되었습니다. 로그인 해주세요.');
-            res.redirect('/');
-          }
-        });
-    });
-  });
-});
-
 // 호스트 등록
 router.post('/:id', function(req, res, next) {
   User.findById(req.params.id, function(err, user) {
@@ -326,9 +218,7 @@ router.post('/:id/register', upload.single("file"), function(req, res, next) {
   User.findById(req.params.id, function(err, user) {
     if (err) {
       return next(err);
-    }
-
-    
+    }    
     
     var newRoom = new Room({
       owner_id: req.params.id,
@@ -373,55 +263,6 @@ router.post('/:id/confirm',function(req,res) {
           });
         });
     });
-});
-
-// PUT
-// 사용자 정보변경
-router.put('/:id', function(req, res, next) {
-  var err = edit_validateForm(req.body);
-  if (err) {
-    req.flash('danger', err);
-    return res.redirect('/');
-  }
-
-  User.findById(req.params.id, function(err, user) {
-    if (err) {
-      return next(err);
-    }
-    if (!user) {
-      req.flash('danger', '존재하지 않는 사용자입니다.');
-      return res.redirect('back');
-    }
-    hasher({password:req.body.password, salt:user.salt}, function(err, pass, salt, hash){
-      if(err){
-        console.log(err);
-      }
-      if(hash === user.password){
-          return hasher({password:req.body.change_password}, function(err, pass, salt, hash){
-              if(err){
-                console.log(err);
-              }
-
-              User.update({_id: req.params.id}, {$set:{
-                name : req.body.name,
-                email : req.body.email,
-                password : hash,
-                salt : salt,
-              }},function(err, results) {
-                if (err) {
-                  return console.log(err);
-                }else{
-                  req.flash('success', '사용자 정보가 변경되었습니다.');
-                  res.redirect('/');
-                }
-              });
-          });
-      }else{
-          req.flash('danger', '현재 비밀번호가 일치하지 않습니다.');
-          return res.redirect('back');
-      }
-    });
-  });
 });
 
 // DELETE
