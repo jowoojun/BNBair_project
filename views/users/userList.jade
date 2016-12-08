@@ -17,7 +17,7 @@ include ../profile_layout
               td= user.email
               td= moment(user.createdAt).format('YYYY-MM-DD HH:mm:ss')
               td
-                a.btn.btn-xs.btn-default(href='/users/#{user._id}/edit') 수정
+                a.btn.btn-xs.btn-default(href='/#{user._id}/edit') 수정
                 | 
-                a.btn.btn-xs.btn-default(href='/users/#{user._id}?_method=DELETE') 삭제
-      a.btn.btn-primary.btn-default(href='/users/new') 사용자추가
+                a.btn.btn-xs.btn-default(href='/#{user._id}?_method=DELETE') 삭제
+      a.btn.btn-primary.btn-default(href='/new') 사용자추가

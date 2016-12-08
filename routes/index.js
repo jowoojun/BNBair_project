@@ -211,6 +211,20 @@ router.put('/:id/edit', function(req, res, next) {
   });
 });
 
+// DELETE
+// 사용자 삭제
+router.delete('/:id', function(req, res, next) {
+  req.logout();
+  User.findOneAndRemove({_id: req.params.id}, function(err) {
+    if (err) {
+      return next(err);
+    }
+    req.flash('success', '사용자 계정이 삭제되었습니다.');
+    res.redirect('/');
+  });
+});
+
+
 // PASSPORT!
 // passport 및 암호화(hash)를 통한 로그인
 // passport 처음에 로그인헀을때 실행 4

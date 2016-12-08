@@ -266,19 +266,6 @@ router.post('/:id/confirm',function(req,res) {
 });
 
 // DELETE
-// 사용자 삭제
-router.delete('/:id', function(req, res, next) {
-  req.logout();
-  User.findOneAndRemove({_id: req.params.id}, function(err) {
-    if (err) {
-      return next(err);
-    }
-    req.flash('success', '사용자 계정이 삭제되었습니다.');
-    res.redirect('/');
-  });
-});
-
-
 // 예약 거절
 router.delete('/:id/message', function(req, res) {
   Booking.findOneAndRemove({_id: req.params.id}, function(err) {
