@@ -214,13 +214,20 @@ router.put('/:id/edit', function(req, res, next) {
 // DELETE
 // 사용자 삭제
 router.delete('/:id', function(req, res, next) {
-  req.logout();
+  if(req.user.id === req.params.id){
+      req.logout();
+  }
+
   User.findOneAndRemove({_id: req.params.id}, function(err) {
     if (err) {
       return next(err);
     }
     req.flash('success', '사용자 계정이 삭제되었습니다.');
-    res.redirect('/');
+    if(!(req.user)){
+      res.redirect('/');
+    }else{
+      res.redirect('back');
+    }
   });
 });
 
