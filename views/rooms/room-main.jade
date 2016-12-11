@@ -84,13 +84,13 @@ h4= room.city
             .col-md-2.col-xs-12
               button.btn.btn-primary.btn-large.btn-block(type='submit') 등록하기
     
-  if currentUser
-    .col-md-11.col-xs-12(style="margin-bottom:1em")
-        h2 후기 작성
-        form(action='/rooms/#{room._id}/post', method='POST')
-          .col-md-10.col-xs-12
-              textarea.form-control(id='reply', name='reply' placeholder = 'reply')
-          .col-md-2.col-xs-12
-              button.btn.btn-primary.btn-large.btn-block(type='submit' style="margin:1em 0") 등록하기
-    
-                
+  
+  .col-md-11.col-xs-12(style="margin-bottom:1em")
+      h2 후기 작성
+      form(action='/rooms/#{room._id}/post', method='POST')
+        .col-md-10.col-xs-12
+            textarea.form-control(id='reply', name='reply' placeholder = 'reply')
+        .col-md-2.col-xs-12
+            button.btn.btn-primary.btn-large.btn-block(type='submit' style="margin:1em 0") 등록하기
+  
+              
