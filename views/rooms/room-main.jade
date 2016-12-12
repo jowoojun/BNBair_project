@@ -68,7 +68,8 @@ h4= room.city
     h3 후기
     each post in posts
       .col-md-12.col-xs-12
-        h4=post.user_name+"님"
+        h4 
+          a(href="/users/#{post.user_id}/profile")=post.user_name+"님"
         h4=moment(post.createdAt).format('YYYY-MM')
       .col-md-12.col-xs-12
         h4=post.content

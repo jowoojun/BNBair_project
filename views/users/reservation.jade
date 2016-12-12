@@ -50,7 +50,7 @@ include ../profile_layout
           thead
             tr
               th 숙소이름
-              td 예약자 이름
+              th 예약자 이름
               th 체크인 날짜
               th 체크아웃 날짜
               th 숙박인원
@@ -61,7 +61,8 @@ include ../profile_layout
                 tr
                   td 
                     a(href='/rooms/#{booked.room_id}')= booked.room_title
-                  td= booked.user_name
+                  td
+                    a(href='/users/#{booked.user_id}/profile')= booked.user_name
                   td= moment(booked.start_date).format('YYYY-MM-DD')
                   td= moment(booked.end_date).format('YYYY-MM-DD')
                   td= booked.occupancy
