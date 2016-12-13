@@ -66,7 +66,7 @@ router.get('/:id/booking', needAuth ,function(req,res) {
 
 // Post
 // 예약 기능
-router.post('/:id/booking',function(req,res) {
+router.post('/:id/booking',needAuth, function(req,res) {
   User.findById(req.user.id, function(err, user){
     Room.findById(req.params.id, function(err, room){
       var newBooking = new Booking({
