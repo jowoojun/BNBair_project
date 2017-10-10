@@ -25,6 +25,7 @@
     "passport-facebook": "^2.1.1",
     "passport-local": "^1.0.0",
     "pbkdf2-password": "^1.2.1",
+    "popper.js": "^1.12.5",
     "serve-favicon": "~2.3.0"
   },
   "devDependencies": {

@@ -4,21 +4,20 @@ block content
     div#div_rooms
       h1 List
       p 전 세계의 독특한 숙소를 예약하고 현지인의 삶을 살아보세요. 
-        div        
+        div
           each room in rooms
             a(href="/rooms/#{room._id}")
-              .col-xs-12.col-sm-6(style="margin: 20px 0px;padding: 0px 10px")
+              .col-xs-12.col-sm-12.list
                 .thumbnail(style="height:200px; overflow:hidden")
                   img(src=room.filePath alt="사진")
                 .caption
                   h3Thumbnail="￦"+room.price +" "+ room.city+"에 위치한 집" 
                 .caption
                   h3Thumbnail="총 예약 "+room.reservation_count +"건 후기 "+ room.reply_count+"개" 
+            
             script(type='text/javascript').
-                
                 var geocoder = new daum.maps.services.Geocoder();
                 geocoder.addr2coord('#{room.address}', function(status, result) {
-
                     // 정상적으로 검색이 완료됐으면 
                     if (status === daum.maps.services.Status.OK) {
 
@@ -38,11 +37,8 @@ block content
 
                         // 지도의 중심을 결과값으로 받은 위치로 이동시킵니다
                         map.setCenter(coords);
-                        
                     } 
                 });
-            
-    
     div#div_map
       div.map_div#map(style="width:100%;height:870px;")
       

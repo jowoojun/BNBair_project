@@ -70,6 +70,7 @@ body {
   padding: 1em;
   border : 1px solid #cccccc;
   background-color: white;
+  width : 100%;
 }
 
 .feature{
@@ -97,7 +98,7 @@ td.head{
 }
 
 p.room{
-  font-size : 1em;
+  font-size : 0.8em;
   font-style: bold;
   margin-top:0.5em;
 }
@@ -180,6 +181,11 @@ div#messages div.fixed {
   overflow-y:hidden;
 }
 
+.list{
+  margin: 20px 0px;
+  padding: 0px 10px;
+}
+
 #map{
   z-index: 1;
 }
@@ -221,7 +227,7 @@ div#messages div.fixed {
 }
 @media only screen and (min-device-width : 1024px) {
   p.room{
-    font-size : 1.5em;
+    font-size : 1em;
     margin-top:0.5em;
   }
 
@@ -233,6 +239,10 @@ div#messages div.fixed {
     top: 100px;
     width: 25%;
 
+  }
+
+  .check_width{
+    width: 100%;
   }
 
   div#messages div.fixed a {

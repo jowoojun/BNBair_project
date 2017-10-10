@@ -8,19 +8,19 @@ h4= room.city
     .col-md-11.col-xs-12.context
       p.room=room.description
     hr
-    .col-md-4.col-xs-12
+    .col-md-11.col-xs-12
       h3 시설
-    .col-md-7.col-xs-12.context
+    .col-md-11.col-xs-12.context
       p.room=room.facilities
-    .col-md-4.col-xs-12
+    .col-md-11.col-xs-12
       h3 규칙
-    .col-md-7.col-xs-12.context
+    .col-md-11.col-xs-12.context
       p.room=room.role
-    .col-md-4.col-xs-12
+    .col-md-11.col-xs-12
       h3 설명
-    .col-md-7.col-xs-12.context
+    .col-md-11.col-xs-12.context
       p.room=room.description
-    .col-md-4.col-xs-12
+    .col-md-11.col-xs-12
       h3 예약 가능 여부
     .col-md-7.col-xs-12
       p.room=moment(room.start_date).format('YYYY-MM-DD') + " ~ " + moment(room.end_date).format('YYYY-MM-DD')
@@ -91,7 +91,7 @@ h4= room.city
       form(action='/rooms/#{room._id}/post', method='POST')
         .col-md-10.col-xs-12
             textarea.form-control(id='reply', name='reply' placeholder = 'reply')
-        .col-md-2.col-xs-12
+        .col-md-4.col-xs-12
             button.btn.btn-primary.btn-large.btn-block(type='submit' style="margin:1em 0") 등록하기
   
               

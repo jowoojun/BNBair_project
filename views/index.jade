@@ -1,14 +1,308 @@
 extends layout
 
+
+
 block content
-  .container
-    .row
-      .col-md-6
-        h1 여행은 살아보는 거야.
-        p 전 세계의 독특한 숙소를 예약하고 현지인의 삶을 살아보세요. 
-    
-        p
-          a.btn.btn-lg.btn-primary.btn-block(href='/rooms') 여행하기
-        
+  .container-fluid
+      img.img-responsive(src='https://cdn.evbstatic.com/s3-build/perm_001/35d88f/django/images/home/banners/homepage_hero_banner_1.jpg', alt='picture of ian')
+    section#card-content
+      .text-card.card.text-center.col-md-9.col-lg-10.col-centered
+        h1.text-card-heading Find your next experience
+        form.form-inline.col-md-9.col-lg-10.col-centered
+          input.inlineFormInputLocation.form-control-lg.searchForm(type='text', placeholder='City or location')
+          input.inlineFormInputLocation.form-control-lg.searchForm(type='date', id='start_date', name='start_date', placeholder='start_date')
+          input.inlineFormInputLocation.form-control-lg.searchForm(type='date', id='end_date', name='end_date', placeholder='end_date')
+          button.btn.btn-search.searchForm(type='button') Search
+    section#post-grids
+      h1.post-heading
+        | Popular Events in 
+        span#text-color-blue Seoul, Republic of Korea
+      .posts-container.card-columns.col-md-10.col-centered
+        .card
+          img.card-img-top(src='https://img.evbuc.com/https%3A%2F%2Fcdn.evbuc.com%2Fimages%2F36099902%2F188355823486%2F1%2Foriginal.jpg?h=230&w=460&rect=0%2C0%2C2160%2C1080&s=1035026ceb8c254b7e75c0397cc2e0a7', alt='Card image cap')
+          .card-body
+            p.event-date FRI, OCT 20 7:00PM
+            p.event-info Grease, School Edition - October 20, 2017
+            p.specific-info Central City, Banpo 4(sa)-dong
+          .card-footer.nav
+            ul.nav
+              li.nav-item
+                p.hash-tag.nav-link #Arts
+              li.nav-item
+                p.hash-tag.nav-link #Performance
+            ul.navbar-nav.ml-auto
+              li.nav-item
+                a.fa.fa-facebook(href='#')
+                a.fa.fa-twitter(href='#')
+        .card
+          img.card-img-top(src='https://img.evbuc.com/https%3A%2F%2Fcdn.evbuc.com%2Fimages%2F29828283%2F130614122253%2F1%2Foriginal.jpg?h=230&w=460&rect=0%2C161%2C1500%2C750&s=4abc6820605bad084d9f4afed218bea8', alt='Card image cap')
+          .card-body
+            p.event-date FRI, OCT 20 7:00PM
+            p.event-info Grease, School Edition - October 20, 2017
+            p.specific-info Central City, Banpo 4(sa)-dong
+          .card-footer.nav
+            ul.nav
+              li.nav-item
+                p.hash-tag.nav-link #Arts
+              li.nav-item
+                p.hash-tag.nav-link #Performance
+            ul.navbar-nav.ml-auto
+              li.nav-item
+                a.fa.fa-facebook(href='#')
+                a.fa.fa-twitter(href='#')
+        .card
+          img.card-img-top(src='https://cdn.evbstatic.com/s3-build/perm_001/bfc5ea/django/images/discovery/default_logos/5.png', alt='Card image cap')
+          .card-body
+            p.event-date FRI, OCT 20 7:00PM
+            p.event-info Grease, School Edition - October 20, 2017
+            p.specific-info Central City  
+          .card-footer.nav
+            ul.nav
+              li.nav-item
+                p.hash-tag.nav-link #Arts
+              li.nav-item
+                p.hash-tag.nav-link #Performance
+            ul.navbar-nav.ml-auto
+              li.nav-item
+                a.fa.fa-facebook(href='#')
+                a.fa.fa-twitter(href='#')
+        .card
+          img.card-img-top(src='https://img.evbuc.com/https%3A%2F%2Fcdn.evbuc.com%2Fimages%2F32430371%2F201846879411%2F1%2Foriginal.jpg?h=230&w=460&rect=0%2C73%2C1518%2C759&s=48e2f9fabb15d735d235281f0c464a54', alt='Card image cap')
+          .card-body
+            p.event-date FRI, OCT 20 7:00PM
+            p.event-info Grease, School Edition - October 20, 2017
+            p.specific-info Central City  
+          .card-footer.nav
+            ul.nav
+              li.nav-item
+                p.hash-tag.nav-link #Arts
+              li.nav-item
+                p.hash-tag.nav-link #Performance
+            ul.navbar-nav.ml-auto
+              li.nav-item
+                a.fa.fa-facebook(href='#')
+                a.fa.fa-twitter(href='#')
+        .card
+          img.card-img-top(src='https://img.evbuc.com/https%3A%2F%2Fcdn.evbuc.com%2Fimages%2F36099940%2F188355823486%2F1%2Foriginal.jpg?h=230&w=460&rect=0%2C0%2C2160%2C1080&s=af78eb586f50014c52a880920004305c', alt='Card image cap')
+          .card-body
+            p.event-date FRI, OCT 20 7:00PM
+            p.event-info Grease, School Edition - October 20, 2017
+            p.specific-info Central City  
+          .card-footer.nav
+            ul.nav
+              li.nav-item
+                p.hash-tag.nav-link #Arts
+              li.nav-item
+                p.hash-tag.nav-link #Performance
+            ul.navbar-nav.ml-auto
+              li.nav-item
+                a.fa.fa-facebook(href='#')
+                a.fa.fa-twitter(href='#')
+        .card
+          img.card-img-top(src='https://img.evbuc.com/https%3A%2F%2Fcdn.evbuc.com%2Fimages%2F34943156%2F75554552429%2F1%2Foriginal.jpg?h=230&w=460&rect=0%2C50%2C600%2C300&s=625264a365e5e07f2316dc6529a7a9dc', alt='Card image cap')
+          .card-body
+            p.event-date FRI, OCT 20 7:00PM
+            p.event-info Grease, School Edition - October 20, 2017
+            p.specific-info Central City  
+          .card-footer.nav
+            ul.nav
+              li.nav-item
+                p.hash-tag.nav-link #Arts
+              li.nav-item
+                p.hash-tag.nav-link #Performance
+            ul.navbar-nav.ml-auto
+              li.nav-item
+                a.fa.fa-facebook(href='#')
+                a.fa.fa-twitter(href='#')
+        .card
+          img.card-img-top(src='https://img.evbuc.com/https%3A%2F%2Fcdn.evbuc.com%2Fimages%2F35129999%2F139848101790%2F1%2Foriginal.jpg?h=230&w=460&rect=0%2C4%2C484%2C242&s=88cc975feb3f29f0fdd322d1f9832a74', alt='Card image cap')
+          .card-body
+            p.event-date FRI, OCT 20 7:00PM
+            p.event-info Grease, School Edition - October 20, 2017
+            p.specific-info Central City  
+          .card-footer.nav
+            ul.nav
+              li.nav-item
+                p.hash-tag.nav-link #Arts
+              li.nav-item
+                p.hash-tag.nav-link #Performance
+            ul.navbar-nav.ml-auto
+              li.nav-item
+                a.fa.fa-facebook(href='#')
+                a.fa.fa-twitter(href='#')
+        .card
+          img.card-img-top(src='https://img.evbuc.com/https%3A%2F%2Fcdn.evbuc.com%2Fimages%2F34695330%2F209390713169%2F1%2Foriginal.jpg?h=230&w=460&rect=0%2C22%2C810%2C405&s=2c8fa0bc39549928de0f2cea2452cbc4', alt='Card image cap')
+          .card-body
+            p.event-date FRI, OCT 20 7:00PM
+            p.event-info Grease, School Edition - October 20, 2017
+            p.specific-info Central City  
+          .card-footer.nav
+            ul.nav
+              li.nav-item
+                p.hash-tag.nav-link #Arts
+              li.nav-item
+                p.hash-tag.nav-link #Performance
+            ul.navbar-nav.ml-auto
+              li.nav-item
+                a.fa.fa-facebook(href='#')
+                a.fa.fa-twitter(href='#')
+        .card
+          img.card-img-top(src='https://cdn.evbstatic.com/s3-build/perm_001/ba7ef6/django/images/discovery/default_logos/2.png', alt='Card image cap')
+          .card-body
+            p.event-date FRI, OCT 20 7:00PM
+            p.event-info Grease, School Edition - October 20, 2017
+            p.specific-info Central City  
+          .card-footer.nav
+            ul.nav
+              li.nav-item
+                p.hash-tag.nav-link #Arts
+              li.nav-item
+                p.hash-tag.nav-link #Performance
+            ul.navbar-nav.ml-auto
+              li.nav-item
+                a.fa.fa-facebook(href='#')
+                a.fa.fa-twitter(href='#')
+        .card
+          img.card-img-top(src='https://img.evbuc.com/https%3A%2F%2Fcdn.evbuc.com%2Fimages%2F32430371%2F201846879411%2F1%2Foriginal.jpg?h=230&w=460&rect=0%2C73%2C1518%2C759&s=48e2f9fabb15d735d235281f0c464a54', alt='Card image cap')
+          .card-body
+            p.event-date FRI, OCT 20 7:00PM
+            p.event-info Grease, School Edition - October 20, 2017
+            p.specific-info Central City  
+          .card-footer.nav
+            ul.nav
+              li.nav-item
+                p.hash-tag.nav-link #Arts
+              li.nav-item
+                p.hash-tag.nav-link #Performance
+            ul.navbar-nav.ml-auto
+              li.nav-item
+                i.fa-facebook
+                a.fa.fa-twitter(href='#')
+        .card
+          img.card-img-top(src='https://img.evbuc.com/https%3A%2F%2Fcdn.evbuc.com%2Fimages%2F34580357%2F205327155999%2F1%2Foriginal.jpg?h=230&w=460&rect=0%2C3%2C200%2C100&s=b9223afd4e7abf714e63e8aea6d00a93', alt='Card image cap')
+          .card-body
+            p.event-date FRI, OCT 20 7:00PM
+            a.event-info Grease, School Edition - October 20, 2017
+            a.specific-info Seoul Foreign School 
+          .card-footer.nav
+            ul.nav
+              li.nav-item
+                p.hash-tag.nav-link #Arts
+              li.nav-item
+                p.hash-tag.nav-link #Performance
+            ul.navbar-nav.ml-auto
+              li.nav-item
+                i.fa-facebook
+                a.fa.fa-twitter(href='#')
+    .text-center
+      button#see-more-btn.btn-lg.btn-outline-primary(type='button') SEE MORE
+    section#Top-categories
+      .text-center
+        h3#browse-category-text Browse by Top Categories
+      .container.categories-container.col-lg-10.col-centered.row
+        .category.music.col-lg-8.col-md-6.thumbnail.text-center
+          img.card-image.rounded(src='http://events.ottawaperks.ca/assets/img/event-categories/5_cover.jpg', alt='music image')
+          .caption.cap.music-label
+            p.caption.cap.-text Music
+        .category.food-N-drink.col-lg-4.col-md-6.thumbnail.text-center
+          img.card-image.rounded(src='https://foodtank.com/wp-content/uploads/2017/03/Food-Tank-Keri-Glassman-interview.jpg', alt='food image')
+          .caption.cap.food-N-drink-label
+            p.caption.cap.-text Food-&-drink
+        .category.classes.col-lg-4.col-md-6.thumbnail.text-center
+          img.card-image.rounded(src='http://i.huffpost.com/gen/1265935/images/h-COLLEGE-CLASS-628x314.jpg', alt='classes image')
+          .caption.cap.classes-label
+            p.caption.cap.-text Classes
+        .category.arts.col-lg-4.col-md-6.thumbnail.text-center
+          img.card-image.rounded(src='https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcR0gMlhAZC1KGnqj9jk28zR5uJwows0TiGcS7pVJcY96k1DWxywJg', alt='arts image')
+          .caption.cap.arts-label
+            p.caption.cap.-text Arts
+        .category.parties.col-lg-4.col-md-6.thumbnail.text-center
+          img.card-image.rounded(src='https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQEAOgj8Y0pZJq1qc6eKYmYwW6iQH9u9EoE74QDVAAs2y7OibDstw', alt='party image')
+          .caption.cap.parties-label
+            p.caption.cap.-text Parties
+        .category.sports-N-wellness.col-lg-4.col-md-6.thumbnail.text-center
+          img.card-image.rounded(src='https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQbEZw55kKTOGS1aUupVybiXTV7p454ViNulZDts40PSpnLQi52IA', alt='sports image')
+          .caption.cap.sports-N-wellness-label
+            p.caption.cap.-text Sports-N-wellness
+        .category.networking.col-lg-8.col-md-6.thumbnail.text-center
+          img.card-image.rounded(src='http://businesspulse.co/wp-content/uploads/2017/08/Networking-events.jpg', alt='networking image')
+          .caption.cap.networking-label
+            p.caption.cap.-text Networking
+    section#global-footer
+      footer.footer
+        .footer-container
+          #footer-long-text.footer-text-container.col-md-8.col-centered.row
+            .col-md-3.footer-col
+              h3.footer-links Use Eventbrite
+              p.footer-text How It Works
+              p.footer-text
+                | For Large & Complex Events 
+                br
+              p.footer-text Pricing
+              p.footer-text Community Guidelines
+              p.footer-text Eventbrite Mobile App
+              p.footer-text Eventbrite Check-in App
+              p.footer-text Eventbrite Spectrum
+              p.footer-text Rally - Fun Things To Do
+              p.footer-text Event Organizing Resources
+              p.footer-text Sitemap
+            .col-md-3.footer-col
+              h3.footer-links Plan Event
+              p.footer-text Conference Management Software
+              p.footer-text Reunions
+              p.footer-text Nonprofits & Fundraisers
+              p.footer-text Eventbrite Reviews
+              p.footer-text Sell Tickets
+              p.footer-text Event Management & Planning
+              p.footer-text Online Event Registration
+              p.footer-text Online RSVP
+              p.footer-text Venue Booking & Management
+              p.footer-text Event Promotion
+            .col-md-3.footer-col
+              h3.footer-links Fine Events
+              p.footer-text Boston Events
+              p.footer-text Chicago Events
+              p.footer-text Denver Events
+              p.footer-text Houston Events
+              p.footer-text Los Angeles Events
+              p.footer-text Nashville Events
+              p.footer-text New York Events
+              p.footer-text San Diego Events
+              p.footer-text San Francisco Events
+              p.footer-text All Cities
+            .col-md-3.footer-col
+              h3.footer-links Connect With Us
+              p.footer-text Contact Support
+              p.footer-text Contact Sale>
+              p.footer-text Twitter
+              p.footer-text Facebook
+              p.footer-text Linkedin
+              p.footer-text Instagram
+              p.footer-text Google+
+          .col-md-8.col-centered
+            hr
+            h3.footer-links Country
+            p#countries.footer-text.text-indent
+              | Argentina      Australia     Brasil      Canada(EN)      Canada(FR)      Chile     Colombia      Deutschland     Espana      France      Hongkong      Ireland     Italia      Mexico      Nederland     New Zealand     Peru    Portugal      Singapore     United Kingdom      United States
+            hr
+          .col-md-8.col-centered
+            h3.footer-links.text-indent
+              | About      Blog      Help      Careers     Press     Security      Developers      Terms     Privacy     Cookies
+            select.custom-select.form-control-lg
+              option(selected='') United States
+              option(value='1') Argentina
+              option(value='2') Australia
+              option(value='3') Brasil
+              option(value='4') Canada(EN)
+              option(value='5') Canada(FR)
+              option(value='6') Deutschland
+              option(value='7') Espana
+              option(value='8') France
+              option(value='9') Hong Kong
+              option(value='10') Ireland
+              option(value='11') Italia
+    script(src='https://code.jquery.com/jquery-3.2.1.slim.min.js', crossorigin='anonymous')
+    script(src='https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.11.0/umd/popper.min.js', crossorigin='anonymous')
+    script(src='https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-beta/js/bootstrap.min.js', crossorigin='anonymous')
 
   

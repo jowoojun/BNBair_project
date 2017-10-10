@@ -1,27 +1,24 @@
-div.border.affix-top
+div.border
   .col-xs-8.col-md-9(style="width:100%")
       h2.price 예약
       h3="￦"+room.price
-  form(method='post', action='/rooms/#{room._id}/booking')
-    .row
-      .col-md-12(style="margin-bottom:20px;padding:0px")
-        .col-sm-4.col-md-6.reservation_input
-          label(for='start_date') 체크인
-          input.form-control(type='date', id='start_date', name='start_date')
-        .col-sm-4.col-md-6.reservation_input
-          label(for='end_date') 체크아웃
-          input.form-control(type='date', id='end_date', name='end_date')
+    .col-md-12
+      form(method='post', action='/rooms/#{room._id}/booking')
+        .col-md-12.col-lg-12(style="margin-bottom:20px;padding:0px")
+            label(for='start_date') 체크인
+            input.form-control.check_width(type='date', id='start_date', name='start_date')
             
+            label(for='end_date') 체크아웃
+            input.check_width.form-control(type='date', id='end_date', name='end_date')
+              
+            label(for='occupancy') 숙박 인원
+            .select.col-lg-6.col-md-6
+              select.form-control.check_width(name='occupancy')
+                option(value='1', selected) 1
+                option(value='2') 2
+                option(value='3') 3
 
-        .col-sm-4.col-md-6.reservation_input
-          label(for='occupancy') 숙박 인원
-          .select
-            select.form-control(name='occupancy')
-              option(value='1', selected) 1
-              option(value='2') 2
-              option(value='3') 3
-
-    .book-it__subtotal
+    .book-it__subtotal.col-md-12
       div
         table.table
           caption
@@ -58,15 +55,3 @@ div.border.affix-top
     form(method='post', action='/rooms/#{room._id}/Favorite')
         .book-it__btn-width
           button.btn.btn-primary.btn-large.btn-block(type='submit') Favorite 목록에 추가
-      script(type='text/javascript').
-        $("div.border.affix-top").affix({offset: {top: 500} });
-        var template = _.template($('#template').html());
-        var width = (window.innerWidth > 0) ? window.innerWidth : screen.width;
-        if (width < 1023){
-            console.log(width);
-            $('#messages').append("<div class='fixed'><a href='/rooms/#{room._id}/booking' class='btn btn-lg btn-primary btn-block reserving'>예약 하기</a><div>");
-            $('.col-md-4#room-side').addClass("hidden");
-        }else{
-            $('.col-md-4#room-side.hidden').removeClass("hidden");
-        }
-    
