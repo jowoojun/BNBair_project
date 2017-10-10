@@ -207,6 +207,11 @@ div#messages div.fixed {
   overflow:hidden;
 }
 
+.btn-navbar{
+    display:block;
+    float:right;
+}
+
 @media only screen and (min-device-width : 425px) {
   div#messages div.fixed a {
     position: fixed;
@@ -224,6 +229,7 @@ div#messages div.fixed {
   .cover-img{
     min-height: 30em;
   }
+  
 }
 @media only screen and (min-device-width : 1024px) {
   p.room{

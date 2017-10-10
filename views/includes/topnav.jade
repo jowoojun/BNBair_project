@@ -1,13 +1,11 @@
 nav.navbar.navbar-expand-lg.navbar-light.navbar-toggleable-md.bg-faded
-    .container-fluid
+    
         // Brand and toggle get grouped for better mobile display
         .navbar-header
           a#navbar-brand.navbar-brand(href='/') GoGoAir
-          button.navbar-toggler-right.navbar-toggler.collapsed(type='button', data-toggle='collapse', data-target='#bs-example-navbar-collapse-1', aria-expanded='true' aria-label="Toggle navigation")
-            span.navbar-toggler-icon
-            span.icon-bar
-            span.icon-bar
-            span.icon-bar
+        button.ml-auto.navbar-toggler(type='button', data-toggle='collapse', data-target='#bs-example-navbar-collapse-1', aria-expanded='true', aria-label='Toggle navigation')
+          span.navbar-toggler-icon
+
         // Collect the nav links, forms, and other content for toggling
         #bs-example-navbar-collapse-1.collapse.navbar-collapse
             form.navbar-form.navbar-left(action='/search', method='POST')
