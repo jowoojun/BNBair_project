@@ -83,7 +83,9 @@ var countries = ["서울", "부산", "인천", "대구", "대전", "광주", "�
 // GET
 /* GET home page. */
 router.get('/', function(req, res, next) {
-  res.render('index');
+  Room.find({}).limit(6).exec(function(err, rooms){
+    res.render('index', {rooms:rooms});
+  })
 });
 
 // 로그인 페이지

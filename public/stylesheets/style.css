@@ -212,6 +212,8 @@ div#messages div.fixed {
     float:right;
 }
 
+
+
 @media only screen and (min-device-width : 425px) {
   div#messages div.fixed a {
     position: fixed;

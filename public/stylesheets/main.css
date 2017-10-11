@@ -184,6 +184,10 @@ li > a:hover {
     height: 100%;
 }
 
+.card{
+    height: 485px;
+}
+
 footer > div {
     background-color: #323538;
 }
